@@ -44,7 +44,7 @@ dependencies:
   flutter_slidable: ^0.5.7
   rxdart: ^0.24.1
   multi_image_picker: ^4.7.14
-
+  photo_view: any
 
   cupertino_icons: ^1.0.0
 

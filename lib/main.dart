@@ -1,27 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_state_notifier/flutter_state_notifier.dart';
 import 'package:provider/provider.dart';
-import 'package:receare/state/reception_application_list_screen/reception_application_list_screen_notifier.dart';
-import 'package:receare/state/reception_application_list_screen/reception_application_list_screen_state.dart';
-import 'package:receare/state/send_application_list_screen/send_application_list_screen_notifier.dart';
-import 'package:receare/state/send_application_list_screen/send_application_list_screen_state.dart';
-import 'package:receare/widget/login_screen.dart';
-import 'package:receare/widget/main_screen.dart';
-import 'package:receare/widget/splash_screen.dart';
-import 'package:receare/state/comment_sender/comment_sender_notifier.dart';
-import 'package:receare/state/comment_sender/comment_sender_state.dart';
-import 'package:receare/state/friend_list_screen/friend_list_screen_notifier.dart';
-import 'package:receare/state/friend_list_screen/friend_list_screen_state.dart';
-import 'package:receare/state/main_screen/main_screen_notifier.dart';
-import 'package:receare/state/main_screen/main_screen_state.dart';
-import 'package:receare/state/shout_create_screen/shout_create_screen_notifier.dart';
-import 'package:receare/state/shout_create_screen/shout_create_screen_state.dart';
-import 'package:receare/state/shout_list_screen/shout_list_screen_notifier.dart';
-import 'package:receare/state/shout_list_screen/shout_list_screen_state.dart';
-import 'package:receare/state/user_detail_screen/user_detail_screen_notifier.dart';
-import 'package:receare/state/user_detail_screen/user_detail_screen_state.dart';
-import 'package:receare/state/user_list_screen/user_list_screen_notifier.dart';
-import 'package:receare/state/user_list_screen/user_list_screen_state.dart';
+import 'package:receare/state/reception_application_list_screen/ReceptionApplicationListPageNotifier.dart';
+import 'package:receare/state/reception_application_list_screen/ReceptionApplicationListPageState.dart';
+import 'package:receare/state/send_application_list_screen/SendApplicationListPageNotifier.dart';
+import 'package:receare/state/send_application_list_screen/SendApplicationListPageState.dart';
+import 'package:receare/state/user_detail_screen/UserDetailPageNotifier.dart';
+import 'package:receare/widget/LoginPage.dart';
+import 'package:receare/widget/MainPage.dart';
+import 'package:receare/widget/SplashPage.dart';
+import 'package:receare/state/comment_sender/CommentSenderNotifier.dart';
+import 'package:receare/state/comment_sender/CommentSenderState.dart';
+import 'package:receare/state/friend_list_screen/FriendListPageNotifier.dart';
+import 'package:receare/state/friend_list_screen/FriendListPageState.dart';
+import 'package:receare/state/main_screen/MainPageNotifier.dart';
+import 'package:receare/state/main_screen/MainPageState.dart';
+import 'package:receare/state/shout_create_screen/ShoutCreatePageNotifier.dart';
+import 'package:receare/state/shout_create_screen/ShoutCreatePageState.dart';
+import 'package:receare/state/shout_list_screen/ShoutListPageNotifier.dart';
+import 'package:receare/state/shout_list_screen/ShoutListPageState.dart';
+import 'package:receare/state/user_detail_screen/UserDetailPageState.dart';
+import 'package:receare/state/user_list_screen/UserListPageNotifier.dart';
+import 'package:receare/state/user_list_screen/UserListPageState.dart';
 
 // --------------------------------
 // mainメソッド
@@ -31,32 +31,32 @@ void main() {
     MultiProvider(
       child: MyApp(),
       providers: [
-        StateNotifierProvider<MainScreenNotifier, MainScreenState>(
-          create: (context) => MainScreenNotifier(),
+        StateNotifierProvider<MainPageNotifier, MainPageState>(
+          create: (context) => MainPageNotifier(),
         ),
-        StateNotifierProvider<ShoutListScreenNotifier, ShoutListScreenState>(
-          create: (context) => ShoutListScreenNotifier(),
+        StateNotifierProvider<ShoutListPageNotifier, ShoutListPageState>(
+          create: (context) => ShoutListPageNotifier(),
         ),
-        StateNotifierProvider<UserDetailScreenNotifier, UserDetailScreenState>(
-          create: (context) => UserDetailScreenNotifier(),
+        StateNotifierProvider<UserDetailPageNotifier, UserDetailPageState>(
+          create: (context) => UserDetailPageNotifier(),
         ),
         StateNotifierProvider<CommentSenderNotifier, CommentSenderState>(
           create: (context) => CommentSenderNotifier(),
         ),
-        StateNotifierProvider<FriendListScreenNotifier, FriendListScreenState>(
-          create: (context) => FriendListScreenNotifier(),
+        StateNotifierProvider<FriendListPageNotifier, FriendListPageState>(
+          create: (context) => FriendListPageNotifier(),
         ),
-        StateNotifierProvider<ShoutCreateScreenNotifier, ShoutCreateScreenState>(
-          create: (context) => ShoutCreateScreenNotifier(),
+        StateNotifierProvider<ShoutCreatePageNotifier, ShoutCreatePageState>(
+          create: (context) => ShoutCreatePageNotifier(),
         ),
-        StateNotifierProvider<UserListScreenNotifier, UserListScreenState>(
-          create: (context) => UserListScreenNotifier(),
+        StateNotifierProvider<UserListPageNotifier, UserListPageState>(
+          create: (context) => UserListPageNotifier(),
         ),
-        StateNotifierProvider<SendApplicationListScreenNotifier, SendApplicationListScreenState>(
-          create: (context) => SendApplicationListScreenNotifier(),
+        StateNotifierProvider<SendApplicationListPageNotifier, SendApplicationListPageState>(
+          create: (context) => SendApplicationListPageNotifier(),
         ),
-        StateNotifierProvider<ReceptionApplicationListScreenNotifier, ReceptionApplicationListScreenState>(
-          create: (context) => ReceptionApplicationListScreenNotifier(),
+        StateNotifierProvider<ReceptionApplicationListPageNotifier, ReceptionApplicationListPageState>(
+          create: (context) => ReceptionApplicationListPageNotifier(),
         ),
       ],
     ),
