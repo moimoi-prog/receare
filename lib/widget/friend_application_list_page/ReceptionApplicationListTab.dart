@@ -1,21 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:receare/state/reception_application_list_screen/ReceptionApplicationListPageNotifier.dart';
-import 'package:receare/state/reception_application_list_screen/ReceptionApplicationListPageState.dart';
-import 'package:receare/widget/parts/UserButtonWidget.dart';
-import 'package:receare/widget/parts/UserImageWidget.dart';
+import 'package:receare/state/reception_application_list_page/ReceptionApplicationListTabNotifier.dart';
+import 'package:receare/state/reception_application_list_page/ReceptionApplicationListTabState.dart';
 import 'package:receare/widget/parts/UserListDetailWidget.dart';
 
-import '../../strings.dart';
+import '../../Strings.dart';
 
-// ----------------------------------------
-// 受信フレンドリクエスト表示タブ
-// ----------------------------------------
+// --------------------------------
+// クラス名 　: ReceptionApplicationListPage
+// クラス概要 : 受信フレンドリクエスト表示タブ
+// --------------------------------
 class ReceptionApplicationListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Provider.of<ReceptionApplicationListPageState>(context, listen: true).when(
+    return Provider.of<ReceptionApplicationListTabState>(context, listen: true).when(
       (friendMapList) {
         if (friendMapList.length == 0) {
           return Padding(
@@ -29,7 +28,7 @@ class ReceptionApplicationListPage extends StatelessWidget {
         return RefreshIndicator(
           onRefresh: () async {
             // Shoutを更新する
-            Provider.of<ReceptionApplicationListPageNotifier>(context, listen: false).reload();
+            Provider.of<ReceptionApplicationListTabNotifier>(context, listen: false).reload();
           },
           child: ListView.separated(
             padding: EdgeInsets.only(right: 5.0, left: 5.0),

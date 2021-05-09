@@ -1,7 +1,3 @@
-// ------------------------------
-// 処理概要　　: ユーザーを登録する
-// 対象テーブル: users
-// ------------------------------
 import 'dart:io';
 import 'dart:typed_data';
 
@@ -10,25 +6,25 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:receare/firebase/StorageModule.dart';
 
-import '../strings.dart';
+import '../Strings.dart';
 import 'AuthModule.dart';
 
-// -----------------------------------
-// Shoutを登録する
-// -----------------------------------
-Future<void> registerShout(
-    {String detail = "", // 内容
-      List<Asset> imageList = const [], // 画像一覧
-      File video, // 動画
-      List<String> tagList = const [] // タグ一覧
-    }) async {
+// --------------------------------
+// メソッド名 : registerShout
+// 処理概要　 : シャウトを登録する
+// --------------------------------
+Future<void> registerShout({String detail = "", // 内容
+  List<Asset> imageList = const [], // 画像一覧
+  File video, // 動画
+  List<String> tagList = const [] // タグ一覧
+}) async {
   try {
     // 現在の時刻を取得
     DateTime now = DateTime.now();
 
-    // シャウトを登録
+    /** シャウトを登録 */
+    // シャウトマップを生成
     Map<String, dynamic> shoutMap = {
-      // Shoutを生成
       Strings.UID: user.uid,
       Strings.DETAIL: detail,
       Strings.CREATE: now,
@@ -36,25 +32,31 @@ Future<void> registerShout(
       Strings.UPDATE: now,
     };
 
+    // DBに登録
     DocumentReference shoutRef = await FirebaseFirestore.instance // Shoutを登録
         .collection(Strings.SHOUTS)
         .add(shoutMap);
 
-    // シャウトに画像を登録
-    for (Asset image in imageList) {
+    /** シャウトに画像を登録 */
+    for (int i = 0; i < imageList.length - 1; i++) {
+      Asset image = imageList[i];
+
       // 画像をFirestorageにアップロード
       ByteData byteData = await image.getByteData();
       List<int> imageData = byteData.buffer.asUint8List();
       String imagePath = await uploadShoutImage(imageData);
 
+      // 画像マップを生成
       Map<String, dynamic> imageMap = {
         // 画像マップを生成
         Strings.PATH: imagePath,
+        Strings.INDEX: i,
         Strings.CREATE: now,
         Strings.READ: now,
         Strings.UPDATE: now,
       };
 
+      // シャウトに画像を登録
       await FirebaseFirestore.instance // 画像マップをShoutに登録
           .collection(Strings.SHOUTS)
           .doc(shoutRef.id)
@@ -62,7 +64,7 @@ Future<void> registerShout(
           .add(imageMap);
     }
 
-    // シャウトとユーザーを紐付け
+    // シャウトとユーザ
     Map<String, dynamic> userShoutMap = {
       // Shoutを生成
       Strings.ID: shoutRef.id,
@@ -76,13 +78,16 @@ Future<void> registerShout(
         .doc(user.uid)
         .collection(Strings.SHOUTS)
         .add(userShoutMap);
-
   } catch (e) {
     // メッセージを表示
     Fluttertoast.showToast(msg: "失敗しました。");
   }
 }
 
+// --------------------------------
+// メソッド名 : deleteShout
+// 処理概要　 : シャウトを削除する
+// --------------------------------
 Future<void> deleteShout({String uid, String shoutId}) async {
   if (uid == null) {
     uid = user.uid;

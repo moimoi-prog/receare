@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
-import 'package:receare/state/shout_create_screen/ShoutCreatePageState.dart';
+import 'package:receare/state/shout_create_page/ShoutCreatePageState.dart';
 import 'package:state_notifier/state_notifier.dart';
 
-import '../../strings.dart';
+import '../../Strings.dart';
 
 class ShoutCreatePageNotifier extends StateNotifier<ShoutCreatePageState> with LocatorMixin {
   ShoutCreatePageNotifier() : super(const ShoutCreatePageState());

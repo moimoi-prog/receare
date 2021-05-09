@@ -3,9 +3,10 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:receare/common/LoadingDialog.dart';
 import 'package:receare/firebase/AuthModule.dart';
 
-// ------------------------------------
-// ログインページ
-// ------------------------------------
+// --------------------------------
+// クラス名 　: LoginPage
+// クラス概要 : ログイン用ページ
+// --------------------------------
 class LoginPage extends StatelessWidget {
   // formキー
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -34,7 +35,10 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  // googleログイン用ボタン
+  // --------------------------------
+  // メソッド名 : _googleLoginButton
+  // 処理概要　 : Googleログイン用ボタン
+  // --------------------------------
   Widget _googleLoginButton(BuildContext context) {
     return RaisedButton(
       child: Text(
@@ -44,10 +48,12 @@ class LoginPage extends StatelessWidget {
         ),
       ),
       onPressed: () async {
+        // Googleログイン処理を実行
         showLoadingDialog(context);
         await signInWithGoogle();
         Navigator.of(context).pop();
 
+        // ログインした場合、メイン画面へ遷移
         if (user != null) {
           Navigator.pushReplacementNamed(context, "/main");
         }

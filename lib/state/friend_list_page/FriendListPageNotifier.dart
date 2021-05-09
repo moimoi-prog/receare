@@ -3,94 +3,94 @@ import 'package:flutter/material.dart';
 import 'package:receare/firebase/AuthModule.dart';
 import 'package:state_notifier/state_notifier.dart';
 
-import '../../strings.dart';
-import 'SendApplicationListPageState.dart';
+import '../../Strings.dart';
+import 'FriendListPageState.dart';
 
 // ------------------------------------
-// クラス名　: SendApplicationListPageNotifier
+// クラス名　: FriendListPageNotifier
 // クラス概要: Friend一覧タブNotifier
 // ------------------------------------
-class SendApplicationListPageNotifier extends StateNotifier<SendApplicationListPageState> with LocatorMixin {
-  SendApplicationListPageNotifier() : super(SendApplicationListPageState.loading());
+class FriendListPageNotifier extends StateNotifier<FriendListPageState> with LocatorMixin {
+  FriendListPageNotifier() : super(FriendListPageState.loading());
 
   // 初期化
   void initState() async {
     super.initState();
 
     // ----------------------------------
-    // 受信申請を取得する
+    // フレンドを取得する
     // ----------------------------------
-    List<DocumentSnapshot> sendDocs = (await FirebaseFirestore.instance // フレンド一覧を取得
+    List<DocumentSnapshot> friendDocs = (await FirebaseFirestore.instance // フレンド一覧を取得
         .collection(Strings.USERS)
         .doc(user.uid)
-        .collection(Strings.SEND_APPLICATIONS)
+        .collection(Strings.FRIENDS)
         .get())
         .docs;
 
     // 登録するMapを生成
-    List<Map<String, dynamic>> sendMapList = [];
+    List<Map<String, dynamic>> friendMapList = [];
 
-    for (DocumentSnapshot sendDoc in sendDocs) {
+    for (DocumentSnapshot friendDoc in friendDocs) {
       DocumentSnapshot userDoc = await FirebaseFirestore.instance // 申請者情報を取得
           .collection(Strings.USERS)
-          .doc(sendDoc.data()[Strings.UID])
+          .doc(friendDoc.data()[Strings.UID])
           .get();
 
       Map<String, dynamic> map = {
-        Strings.ID: sendDoc.id,
-        Strings.SEND_APPLICATION: sendDoc,
+        Strings.ID: friendDoc.id,
+        Strings.FRIEND: friendDoc,
         Strings.USER: userDoc,
       };
 
-      sendMapList.add(map);
+      friendMapList.add(map);
     }
 
-    state = SendApplicationListPageState(
-      sendMapList: sendMapList,
+    state = FriendListPageState(
+      friendMapList: friendMapList,
     );
   }
 
   // documentを読み込む
-  Future reload() async {
+  void reload() async {
     // 現在のステータスを取得
     final currentState = state;
 
     // ----------------------------------
-    // 受信申請を取得する
+    // フレンドを取得する
     // ----------------------------------
-    List<DocumentSnapshot> sendDocs = (await FirebaseFirestore.instance // フレンド一覧を取得
+    List<DocumentSnapshot> friendDocs = (await FirebaseFirestore.instance // フレンド一覧を取得
         .collection(Strings.USERS)
         .doc(user.uid)
-        .collection(Strings.SEND_APPLICATIONS)
+        .collection(Strings.FRIENDS)
         .get())
         .docs;
 
     // 登録するMapを生成
-    List<Map<String, dynamic>> sendMapList = [];
+    List<Map<String, dynamic>> friendMapList = [];
 
-    for (DocumentSnapshot sendDoc in sendDocs) {
+    for (DocumentSnapshot friendDoc in friendDocs) {
       DocumentSnapshot userDoc = await FirebaseFirestore.instance // 申請者情報を取得
           .collection(Strings.USERS)
-          .doc(sendDoc.data()[Strings.UID])
+          .doc(friendDoc.data()[Strings.UID])
           .get();
 
       Map<String, dynamic> map = {
-        Strings.ID: sendDoc.id,
-        Strings.SEND_APPLICATION: sendDoc,
+        Strings.ID: friendDoc.id,
+        Strings.FRIEND: friendDoc,
         Strings.USER: userDoc,
       };
 
-      sendMapList.add(map);
+      friendMapList.add(map);
     }
 
-    if (currentState is SendApplicationListPageStateData) {
+    if (currentState is FriendListPageStateData) {
       // stateを更新
       state = currentState.copyWith(
-        sendMapList: sendMapList,
+        friendMapList: friendMapList,
       );
     } else {
-      state = SendApplicationListPageState(
-        sendMapList: sendMapList,
+      state = FriendListPageState(
+        friendMapList: friendMapList,
       );
     }
   }

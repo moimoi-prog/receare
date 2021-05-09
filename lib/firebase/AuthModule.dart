@@ -13,9 +13,10 @@ final GoogleSignIn _googleSignIn = GoogleSignIn();
 final FirebaseAuth _auth = FirebaseAuth.instance;
 User user;
 
-// ------------------------------
-// Googleアカウントでログイン(初期)
-// ------------------------------
+// --------------------------------
+// メソッド名 : signInWithGoogleSilently
+// 処理概要　 : Googleアカウントでログイン(初期)
+// --------------------------------
 Future<void> signInWithGoogleSilently() async {
   // グーグルアカウントを取得
   GoogleSignInAccount googleCurrentUser = _googleSignIn.currentUser;
@@ -72,9 +73,10 @@ Future<void> signInWithGoogleSilently() async {
   }
 }
 
-// ------------------------------
-// Googleアカウントでログイン
-// ------------------------------
+// --------------------------------
+// メソッド名 : signInWithGoogle
+// 処理概要　 : Googleアカウントでログイン
+// --------------------------------
 Future<void> signInWithGoogle() async {
   // グーグルアカウントを取得
   GoogleSignInAccount googleCurrentUser = _googleSignIn.currentUser;
@@ -142,9 +144,10 @@ Future<void> signInWithGoogle() async {
   }
 }
 
-// ------------------------------
-// Googleアカウントでログアウト
-// ------------------------------
+// --------------------------------
+// メソッド名 : signOutWithGoogle
+// 処理概要　 : Googleアカウントでログアウト
+// --------------------------------
 Future<void> signOutWithGoogle() async {
   // グーグルアカウントを取得
   GoogleSignInAccount googleCurrentUser = _googleSignIn.currentUser;

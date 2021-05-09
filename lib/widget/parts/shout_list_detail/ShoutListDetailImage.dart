@@ -2,11 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:receare/widget/image_detail_page/ImageDetailPage.dart';
 
-import '../../../strings.dart';
+import '../../../Strings.dart';
 
-// ------------------------------------
-// インスタグラムみたいに画像を表示するやつ
-// ------------------------------------
+// --------------------------------
+// クラス名 　: ShoutListDetailImage
+// クラス概要 : シャウト画像表示
+// --------------------------------
 class ShoutListDetailImage extends StatelessWidget {
   final QuerySnapshot query;
 
@@ -32,6 +33,10 @@ class ShoutListDetailImage extends StatelessWidget {
     );
   }
 
+// --------------------------------
+// メソッド名 :
+// 処理概要　 :
+// --------------------------------
   Widget _child(BuildContext context, QuerySnapshot query) {
     switch (query.size) {
       case 1:
@@ -52,10 +57,18 @@ class ShoutListDetailImage extends StatelessWidget {
     }
   }
 
+// --------------------------------
+// メソッド名 : _image1
+// 処理概要　 : シャウト画像1枚表示
+// --------------------------------
   Widget _image1(BuildContext context, QuerySnapshot query) {
     return _image(context, query.docs[0]);
   }
 
+// --------------------------------
+// メソッド名 : _image2
+// 処理概要　 : シャウト画像2枚表示
+// --------------------------------
   Widget _image2(BuildContext context, QuerySnapshot query) {
     return Container(
       child: Row(
@@ -81,6 +94,10 @@ class ShoutListDetailImage extends StatelessWidget {
     );
   }
 
+// --------------------------------
+// メソッド名 : _image3
+// 処理概要　 : シャウト画像3枚表示
+// --------------------------------
   Widget _image3(BuildContext context, QuerySnapshot query) {
     return Container(
       child: Row(
@@ -122,6 +139,10 @@ class ShoutListDetailImage extends StatelessWidget {
     );
   }
 
+// --------------------------------
+// メソッド名 : _image4
+// 処理概要　 : シャウト画像4枚表示
+// --------------------------------
   Widget _image4(BuildContext context, QuerySnapshot query) {
     return Container(
       child: Column(
@@ -179,13 +200,17 @@ class ShoutListDetailImage extends StatelessWidget {
     );
   }
 
+// --------------------------------
+// メソッド名 : _image
+// 処理概要　 : シャウト画像
+// --------------------------------
   Widget _image(BuildContext context, DocumentSnapshot doc) {
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) {
-              return ImageDetailScreen(
+              return ImageDetailPage(
                 path: doc.data()[Strings.PATH],
               );
             },

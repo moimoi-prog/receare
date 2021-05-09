@@ -1,10 +1,12 @@
 // --------------------------------
-// 文字列を定数として管理する
+// メソッド名 : Strings
+// 処理概要　 : 文字列を定数として管理する
 // --------------------------------
 class Strings {
   /* ID */ static const String ID = "id";
   /* ドキュメント */ static const String DOC = "doc";
   /* 汎用パス */ static const String PATH = "path";
+  /* 汎用インデックス */ static const String INDEX = "index";
 
   /* ユーザーID */ static const String UID = "uid";
   /* ユーザー(単数形) */ static const String USER = "user";
@@ -33,8 +35,6 @@ class Strings {
   /* シャウトについているコメント */ static const String COMMENTS = "comments";
   /* 画像パス */ static const String IMAGE_PATH = "image_path";
   /* 明細 */ static const String DETAIL = "detail";
-
-  /* 藤吉夏鈴 */ static const String FUJIYOSHI_KARIN = "fujiyoshi_karin";
 
   /* 作成日 */ static const String CREATE = "create";
   /* 読込日 */ static const String READ = "read";

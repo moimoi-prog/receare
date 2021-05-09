@@ -3,18 +3,19 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:receare/common/LoadingDialog.dart';
 import 'package:receare/firebase/AuthModule.dart';
-import 'package:receare/state/friend_list_screen/FriendListPageNotifier.dart';
-import 'package:receare/state/reception_application_list_screen/ReceptionApplicationListPageNotifier.dart';
-import 'package:receare/state/send_application_list_screen/SendApplicationListPageNotifier.dart';
-import 'package:receare/state/user_detail_screen/UserDetailPageNotifier.dart';
+import 'package:receare/state/friend_list_page/FriendListPageNotifier.dart';
+import 'package:receare/state/reception_application_list_page/ReceptionApplicationListTabNotifier.dart';
+import 'package:receare/state/send_application_list_page/SendApplicationListTabNotifier.dart';
+import 'package:receare/state/user_detail_page/UserDetailPageNotifier.dart';
 import 'package:receare/widget/friend_application_list_page/FriendApplicationListPage.dart';
 import 'package:receare/widget/friend_list_page/FriendListPage.dart';
 import 'package:receare/widget/user_detail_page/UserDetailPage.dart';
 
 
-// ----------------------------------------
-// メニュー(左横をスライドすると出てくるメニュー)
-// ----------------------------------------
+// --------------------------------
+// クラス名 　: DrawerMenu
+// クラス概要 : ドロワーメニュー
+// --------------------------------
 class DrawerMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -67,8 +68,8 @@ class DrawerMenu extends StatelessWidget {
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) {
-                    Provider.of<SendApplicationListPageNotifier>(context, listen: false).reload();
-                    Provider.of<ReceptionApplicationListPageNotifier>(context, listen: false).reload();
+                    Provider.of<SendApplicationListTabNotifier>(context, listen: false).reload();
+                    Provider.of<ReceptionApplicationListTabNotifier>(context, listen: false).reload();
                     return FriendApplicationListPage();
                   },
                 ),

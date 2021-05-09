@@ -6,7 +6,8 @@ import 'package:image_picker/image_picker.dart';
 import 'CommonModule.dart';
 
 // --------------------------------
-// ドキュメント類の保存先を取得
+// メソッド名 : localPath
+// 処理概要　 : 画像の保存先パスを返す
 // --------------------------------
 Future get localPath async {
   final directory = await getApplicationDocumentsDirectory();
@@ -14,7 +15,8 @@ Future get localPath async {
 }
 
 // --------------------------------
-// ドキュメントへ画像を保存する
+// メソッド名 : saveLocalImage
+// 処理概要　 : ドキュメントへ画像を保存する
 // --------------------------------
 Future saveLocalImage(File image) async {
   String formatted = getFormattedDate('yyyyMMddHHmmss');
@@ -31,7 +33,8 @@ Future saveLocalImage(File image) async {
 }
 
 // --------------------------------
-// ドキュメントの画像を取得する
+// メソッド名 : leadLocalImage
+// 処理概要　 : ドキュメントの画像を取得する
 // --------------------------------
 Future leadLocalImage() async {
   String formatted = getFormattedDate('yyyyMMddHHmmss');
@@ -42,8 +45,8 @@ Future leadLocalImage() async {
 }
 
 // --------------------------------
-// カメラかライブラリから画像を取得する
-// sourceでカメラかライブラリかを指定
+// メソッド名 : getAndSaveImageFromDevice
+// 処理概要　 : カメラかライブラリから画像を取得する
 // --------------------------------
 Future<File> getAndSaveImageFromDevice(ImageSource source) async {
   // 画像を取得

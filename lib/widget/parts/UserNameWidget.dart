@@ -2,14 +2,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:receare/state/user_detail_screen/UserDetailPageNotifier.dart';
+import 'package:receare/state/user_detail_page/UserDetailPageNotifier.dart';
 import 'package:receare/widget/user_detail_page/UserDetailPage.dart';
 
-import '../../strings.dart';
+import '../../Strings.dart';
 
-// ----------------------------------------
-// ユーザー名
-// ----------------------------------------
+// --------------------------------
+// クラス名 　: UserNameWidget
+// クラス概要 : ユーザー名
+// --------------------------------
 class UserNameWidget extends StatelessWidget {
   final String uid;
   final bool profile;

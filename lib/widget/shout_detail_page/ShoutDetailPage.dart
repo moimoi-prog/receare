@@ -1,24 +1,24 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:receare/common/CommonModule.dart';
 import 'package:receare/firebase/CommentModule.dart';
 import 'package:receare/widget/parts/shout_list_detail/ShoutListDetailWidget.dart';
 import 'package:receare/state/comment_sender/CommentSenderNotifier.dart';
 import 'package:receare/state/comment_sender/CommentSenderState.dart';
-import 'package:receare/state/shout_list_screen/ShoutListPageNotifier.dart';
-import 'package:receare/state/user_detail_screen/UserDetailPageNotifier.dart';
+import 'package:receare/state/shout_list_page/ShoutListPageNotifier.dart';
+import 'package:receare/state/user_detail_page/UserDetailPageNotifier.dart';
 import 'package:receare/widget/parts/UserImageWidget.dart';
 import 'package:receare/widget/parts/UserNameWidget.dart';
 import 'package:receare/widget/user_detail_page/UserDetailPage.dart';
 
-import '../../strings.dart';
+import '../../Strings.dart';
 
-// ----------------------------------------
-// シャウト明細画面
-// ----------------------------------------
+// --------------------------------
+// クラス名 　: ShoutDetailPage
+// クラス概要 : シャウト明細画面
+// --------------------------------
 class ShoutDetailPage extends StatelessWidget {
   /* shoutデータ */ final Map<String, dynamic> shoutMap;
 
@@ -67,111 +67,10 @@ class ShoutDetailPage extends StatelessWidget {
     );
   }
 
-  // 投稿パーツ
-  Widget _shoutWidget(BuildContext context) {
-    return Container(
-      child: ListTile(
-        leading: InkWell(
-          onTap: () {
-            // return Navigator.of(context).push(
-            //     MaterialPageRoute(
-            //         builder: (context) {
-            //           return ProfilePage(uid: shout.uid);
-            //         }
-            //     )
-            // );
-            Fluttertoast.showToast(msg: "プロフィールページへ遷移する");
-          },
-          child: StreamBuilder(
-            initialData: shoutMap[Strings.USER],
-            stream: FirebaseFirestore.instance // User情報を取得
-                .collection(Strings.USERS)
-                .doc(shoutMap[Strings.SHOUT][Strings.UID])
-                .snapshots(),
-            builder: (BuildContext context, AsyncSnapshot<dynamic> userDoc) {
-              if (!userDoc.hasData) {
-                return Container(
-                  width: MediaQuery.of(context).size.width / 8,
-                  height: MediaQuery.of(context).size.width / 8,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.grey,
-                  ),
-                );
-              }
-
-              shoutMap[Strings.USER] = userDoc.data;
-
-              return UserImageWidgetFromPath(
-                path: shoutMap[Strings.USER][Strings.ICON_IMAGE_PATH],
-                radius: MediaQuery.of(context).size.width / 8,
-                color: Colors.grey,
-              );
-            },
-          ),
-        ),
-        title: InkWell(
-          onTap: () {
-            Fluttertoast.showToast(msg: "ShoutDetailPageへ遷移する");
-          },
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              StreamBuilder(
-                initialData: shoutMap[Strings.USER],
-                stream: FirebaseFirestore.instance // User情報を取得
-                    .collection(Strings.USERS)
-                    .doc(shoutMap[Strings.SHOUT][Strings.UID])
-                    .snapshots(),
-                builder: (BuildContext context, AsyncSnapshot<dynamic> userDoc) {
-                  if (!userDoc.hasData) {
-                    return Text("");
-                  }
-
-                  shoutMap[Strings.USER] = userDoc.data;
-
-                  return Text(
-                    shoutMap[Strings.USER][Strings.NAME],
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  );
-                },
-              ),
-              Row(
-                children: [
-                  Text(
-                    getPassDate(shoutMap[Strings.SHOUT][Strings.UPDATE].toDate()),
-                    style: TextStyle(color: Colors.grey),
-                  ),
-                  InkWell(
-                    child: Padding(
-                      padding: EdgeInsets.only(left: 5.0),
-                      child: Icon(Icons.star_border, color: Colors.grey),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-        subtitle: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.only(top: 5.0, bottom: 5.0, right: 5.0),
-              child: Text(
-                shoutMap[Strings.SHOUT][Strings.DETAIL],
-                style: TextStyle(color: Theme.of(context).textTheme.bodyText1.color),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  // コメントパーツ
+  // --------------------------------
+  // メソッド名 　: _commentWidget
+  // メソッド概要 : コメント表示用
+  // --------------------------------
   Widget _commentWidget(BuildContext context, DocumentSnapshot commentDoc) {
     return ListTile(
       leading: InkWell(
@@ -228,7 +127,10 @@ class ShoutDetailPage extends StatelessWidget {
     );
   }
 
-  // コメント入力欄
+  // --------------------------------
+  // メソッド名 : _commentInputFieldWidget
+  // 処理概要　 : コメント入力欄
+  // --------------------------------
   Widget _commentInputFieldWidget(BuildContext context) {
     return Container(
       color: Theme.of(context).primaryColor,

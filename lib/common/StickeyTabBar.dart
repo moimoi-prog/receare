@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-// ----------------------------------------
-// Twitterのプロフィール画面みたいなやつ
-// ----------------------------------------
+// --------------------------------
+// クラス名 　: StickyTabBar
+// クラス概要 : Twitterのプロフィール画面のようなWidget
+// --------------------------------
 class StickyTabBar extends StatelessWidget {
   // 引数
   /* タブヘッダー      */ final List<Widget> tabHeader;
@@ -51,6 +52,10 @@ class StickyTabBar extends StatelessWidget {
   }
 }
 
+// --------------------------------
+// クラス名 　: _StickyTabBarDelegate
+// クラス概要 : タブバー
+// --------------------------------
 class _StickyTabBarDelegate extends SliverPersistentHeaderDelegate {
   const _StickyTabBarDelegate(this.tabBar);
 

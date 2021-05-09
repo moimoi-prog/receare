@@ -3,9 +3,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:receare/pub/simple_image_crop.dart';
 
-// ----------------------------------------
-// アイコン画像切り取り画面
-// ----------------------------------------
+// --------------------------------
+// クラス名 　: IconImageCropPage
+// クラス概要 : アイコン画像切り取り画面
+// --------------------------------
 class IconImageCropPage extends StatelessWidget {
   final cropKey = GlobalKey<ImgCropState>();
   final File image;
@@ -57,6 +58,10 @@ class IconImageCropPage extends StatelessWidget {
     );
   }
 
+  // --------------------------------
+  // メソッド名 : showImage
+  // 処理概要　 : 画像表示
+  // --------------------------------
   Future<Null> showImage(BuildContext context, File file) async {
     return showDialog<Null>(
       context: context,

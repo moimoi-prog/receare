@@ -6,8 +6,8 @@ import 'package:flutter_native_image/flutter_native_image.dart';
 import 'package:intl/intl.dart';
 
 // --------------------------------
-// DocumentSnapshotに
-// キーが保存されているか判定する
+// メソッド名 : registeredKey
+// 処理概要　 : DocumentSnapshotにキーが保存されているか判定する
 // --------------------------------
 bool registeredKey(DocumentSnapshot doc, String key) {
   bool flag;
@@ -25,9 +25,10 @@ bool registeredKey(DocumentSnapshot doc, String key) {
 
 }
 
-// -----------------------------------------
-// フォーマットを指定して日付文字列を返す
-// -----------------------------------------
+// --------------------------------
+// メソッド名 : getAndSaveImageFromDevice
+// 処理概要　 : フォーマットを指定して日付文字列を返す
+// --------------------------------
 String getFormattedDate(String format, [DateTime date]) {
   // 日付が指定されていない場合、現在の日付を指定
   if (date == null) {
@@ -45,9 +46,10 @@ String getFormattedDate(String format, [DateTime date]) {
 
 }
 
-// -----------------------------------------
-// 現在時刻との差分を取得する
-// -----------------------------------------
+// --------------------------------
+// メソッド名 : getPassDate
+// 処理概要　 : 現在時刻との差分を取得する
+// --------------------------------
 String getPassDate(DateTime date) {
   //　時刻の差分を取得する
   DateTime now = DateTime.now();
@@ -82,9 +84,10 @@ String getPassDate(DateTime date) {
 
 }
 
-// -----------------------------------------
-// 画像を指定されたサイズに変換する
-// -----------------------------------------
+// --------------------------------
+// メソッド名 : imageCompression
+// 処理概要　 : 画像を指定されたサイズに変換する
+// --------------------------------
 Future<File> imageCompression(File file, int width, int height) async {
   File ret = await FlutterNativeImage.compressImage(
       file.path,
@@ -96,9 +99,10 @@ Future<File> imageCompression(File file, int width, int height) async {
   return ret;
 }
 
-// -----------------------------------------
-// 画像を指定されたサイズに変換する(パスから)
-// -----------------------------------------
+// --------------------------------
+// メソッド名 : imageCompressionToPath
+// 処理概要　 : 画像を指定されたサイズに変換する(パスから)
+// --------------------------------
 Future<File> imageCompressionToPath(String path, int width, int height) async {
   File ret = await FlutterNativeImage.compressImage(
       path,
@@ -110,9 +114,10 @@ Future<File> imageCompressionToPath(String path, int width, int height) async {
   return ret;
 }
 
-// -----------------------------------------
-// ランダムな文字列を生成する
-// -----------------------------------------
+// --------------------------------
+// メソッド名 : randomString
+// 処理概要　 : ランダムな文字列を生成する
+// --------------------------------
 String randomString(int length) {
   const _randomChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   const _charsLength = _randomChars.length;

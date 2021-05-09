@@ -4,12 +4,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
-import 'package:receare/state/user_detail_screen/UserDetailPageNotifier.dart';
+import 'package:receare/state/user_detail_page/UserDetailPageNotifier.dart';
 import 'package:receare/widget/user_detail_page/UserDetailPage.dart';
 
-import '../../strings.dart';
+import '../../Strings.dart';
 
-// ユーザープロフィール画像
+// --------------------------------
+// クラス名 　: UserImageWidget
+// クラス概要 : ユーザープロフィール画像
+// --------------------------------
 class UserImageWidget extends StatelessWidget {
   final String uid;
   final double radius;
@@ -111,6 +114,10 @@ class UserImageWidget extends StatelessWidget {
   }
 }
 
+// --------------------------------
+// クラス名 　: UserImageWidgetFromPath
+// クラス概要 : ユーザープロフィール画像(パスから生成)
+// --------------------------------
 // ユーザープロフィール画像
 class UserImageWidgetFromPath extends StatelessWidget {
   final String path;

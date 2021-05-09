@@ -2,15 +2,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:receare/firebase/AuthModule.dart';
 import 'package:state_notifier/state_notifier.dart';
 
-import '../../strings.dart';
-import 'ReceptionApplicationListPageState.dart';
+import '../../Strings.dart';
+import 'ReceptionApplicationListTabState.dart';
 
 // ------------------------------------
-// クラス名　: ReceptionApplicationListPageNotifier
+// クラス名　: ReceptionApplicationListTabNotifier
 // クラス概要: Friend一覧タブNotifier
 // ------------------------------------
-class ReceptionApplicationListPageNotifier extends StateNotifier<ReceptionApplicationListPageState> with LocatorMixin {
-  ReceptionApplicationListPageNotifier() : super(ReceptionApplicationListPageState.loading());
+class ReceptionApplicationListTabNotifier extends StateNotifier<ReceptionApplicationListTabState> with LocatorMixin {
+  ReceptionApplicationListTabNotifier() : super(ReceptionApplicationListTabState.loading());
 
   // 初期化
   void initState() async {
@@ -44,7 +44,7 @@ class ReceptionApplicationListPageNotifier extends StateNotifier<ReceptionApplic
       receptionMapList.add(map);
     }
 
-    state = ReceptionApplicationListPageState(
+    state = ReceptionApplicationListTabState(
       receptionMapList: receptionMapList,
     );
   }
@@ -82,13 +82,13 @@ class ReceptionApplicationListPageNotifier extends StateNotifier<ReceptionApplic
       receptionMapList.add(map);
     }
 
-    if (currentState is ReceptionApplicationListPageStateData) {
+    if (currentState is ReceptionApplicationListTabStateData) {
       // stateを更新
       state = currentState.copyWith(
         receptionMapList: receptionMapList,
       );
     } else {
-      state = ReceptionApplicationListPageState(
+      state = ReceptionApplicationListTabState(
         receptionMapList: receptionMapList,
       );
     }

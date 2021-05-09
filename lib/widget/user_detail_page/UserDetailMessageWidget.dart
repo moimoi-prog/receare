@@ -1,15 +1,15 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:receare/common/CommonModule.dart';
-import 'package:receare/state/user_detail_screen/UserDetailPageState.dart';
+import 'package:receare/state/user_detail_page/UserDetailPageState.dart';
 
-import '../../strings.dart';
+import '../../Strings.dart';
 
-// ------------------------------------
-// プロフィールメッセージパーツ
-// ------------------------------------
+// --------------------------------
+// クラス名 　: UserDetailMessageWidget
+// クラス概要 : プロフィールメッセージ
+// --------------------------------
 class UserDetailMessageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

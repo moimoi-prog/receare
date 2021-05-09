@@ -1,18 +1,15 @@
-// ------------------------------
-// 処理概要　　: ユーザーを登録する
-// 対象テーブル: users
-// ------------------------------
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:receare/firebase/StorageModule.dart';
 
-import '../strings.dart';
+import '../Strings.dart';
 
-// ------------------------------
-// userを登録する
-// ------------------------------
+// --------------------------------
+// メソッド名 : registerUser
+// 処理概要　 : ユーザーを登録する
+// --------------------------------
 Future<void> registerUser(String name, String uid, String email) async {
   try {
     DateTime now = DateTime.now();
@@ -41,9 +38,10 @@ Future<void> registerUser(String name, String uid, String email) async {
   }
 }
 
-// ------------------------------
-// userを更新する
-// ------------------------------
+// --------------------------------
+// メソッド名 : updateUser
+// 処理概要　 : ユーザーを更新する
+// --------------------------------
 Future<void> updateUser({
   String name,
   String uid,
@@ -100,9 +98,10 @@ Future<void> updateUser({
   }
 }
 
-// ------------------------------
-// フレンドリクエストを送信する
-// ------------------------------
+// --------------------------------
+// メソッド名 : sendFriendRequest
+// 処理概要　 : フレンドリクエストを送信する
+// --------------------------------
 Future<void> sendFriendRequest(
     String sendUid, // 送信元ID
     String distUid, // 宛先ID
@@ -147,9 +146,10 @@ Future<void> sendFriendRequest(
   }
 }
 
-// ------------------------------
-// フレンドリクエストを承認する
-// ------------------------------
+// --------------------------------
+// メソッド名 : apploveFriendRequest
+// 処理概要　 : フレンドリクエストを承認する
+// --------------------------------
 Future<void> apploveFriendRequest(
     String sendUid, // 送信元ID
     String distUid, // 宛先ID
@@ -208,10 +208,10 @@ Future<void> apploveFriendRequest(
   }
 }
 
-
-// ------------------------------
-// フレンドリクエストを拒否する
-// ------------------------------
+// --------------------------------
+// メソッド名 : rejectFriendRequest
+// 処理概要　 : フレンドリクエストを拒否する
+// --------------------------------
 Future<void> rejectFriendRequest(
     String sendUid, // 送信元ID
     String distUid, // 宛先ID
@@ -237,9 +237,10 @@ Future<void> rejectFriendRequest(
   }
 }
 
-// ------------------------------
-// フレンド解除する
-// ------------------------------
+// --------------------------------
+// メソッド名 : rejectFriend
+// 処理概要　 : フレンド解除する
+// --------------------------------
 Future<void> rejectFriend(
     String sendUid, // 送信元ID
     String distUid, // 宛先ID

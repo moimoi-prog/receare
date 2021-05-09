@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:receare/common/StickeyTabBar.dart';
-import 'package:receare/state/user_detail_screen/UserDetailPageNotifier.dart';
+import 'package:receare/state/user_detail_page/UserDetailPageNotifier.dart';
 import 'package:receare/widget/shout_create_page/ShoutCreatePage.dart';
 import 'package:receare/widget/user_detail_page/UserDetailDataWidget.dart';
 import 'package:receare/widget/user_detail_page/UserDetailMessageWidget.dart';
 import 'package:receare/widget/user_detail_page/UserShoutListWidget.dart';
 
-
-// ----------------------------------------
-// ユーザー詳細画面
-// ----------------------------------------
+// --------------------------------
+// クラス名 　: UserDetailPage
+// クラス概要 : ユーザー詳細画面
+// --------------------------------
 class UserDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

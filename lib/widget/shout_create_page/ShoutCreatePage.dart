@@ -6,12 +6,13 @@ import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:receare/common/LoadingDialog.dart';
 import 'package:receare/firebase/ShoutModule.dart';
-import 'package:receare/state/shout_create_screen/ShoutCreatePageNotifier.dart';
-import 'package:receare/state/shout_create_screen/ShoutCreatePageState.dart';
+import 'package:receare/state/shout_create_page/ShoutCreatePageNotifier.dart';
+import 'package:receare/state/shout_create_page/ShoutCreatePageState.dart';
 
-// ----------------------------------
-// シャウト作成画面
-// ----------------------------------
+// --------------------------------
+// クラス名 　: ShoutCreatePage
+// クラス概要 : シャウト登録用
+// --------------------------------
 class ShoutCreatePage extends StatelessWidget {
   final DocumentSnapshot document;
 
@@ -119,6 +120,10 @@ class ShoutCreatePage extends StatelessWidget {
     );
   }
 
+  // --------------------------------
+  // メソッド名 : loadAssets
+  // 処理概要　 : Assetsを読み込む
+  // --------------------------------
   Future<List<Asset>> loadAssets(BuildContext context) async {
     List<Asset> resultList = List<Asset>();
 

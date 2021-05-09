@@ -1,19 +1,13 @@
-// ------------------------------
-// メソッド名　: registerComment
-// 処理概要　　: 投稿にコメントする
-// 対象テーブル: comment, user, post
-// 引数　　　　: reply   ... 投稿
-// 　　　　　　: detail  ... 内容
-// ------------------------------
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import '../strings.dart';
+import '../Strings.dart';
 import 'AuthModule.dart';
 
-// ------------------------------
-// commentを登録する
-// ------------------------------
+// --------------------------------
+// メソッド名 : registerComment
+// 処理概要　 : commentを登録する
+// --------------------------------
 Future<DocumentReference> registerComment(String shoutId, String detail) async {
   try {
     // 現在の時間を取得
@@ -77,9 +71,10 @@ Future<DocumentReference> registerComment(String shoutId, String detail) async {
   }
 }
 
-// ------------------------------
-// commentを変更する
-// ------------------------------
+// --------------------------------
+// メソッド名 : updateComment
+// 処理概要　 : commentを変更する
+// --------------------------------
 Future<String> updateComment(String id, Map<String, dynamic> map) async {
   try {
     await FirebaseFirestore.instance // コメント内容を更新
@@ -97,9 +92,10 @@ Future<String> updateComment(String id, Map<String, dynamic> map) async {
   }
 }
 
-// ------------------------------
-// commentを削除する
-// ------------------------------
+// --------------------------------
+// メソッド名 : deleteComment
+// 処理概要　 : commentを削除する
+// --------------------------------
 Future<void> deleteComment(String postId, String commentId) async {
   try {
     await FirebaseFirestore.instance // commentからデータを削除

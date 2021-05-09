@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:receare/state/user_detail_screen/UserDetailPageNotifier.dart';
-import 'package:receare/state/user_detail_screen/UserDetailPageState.dart';
+import 'package:receare/state/user_detail_page/UserDetailPageNotifier.dart';
+import 'package:receare/state/user_detail_page/UserDetailPageState.dart';
 import 'package:receare/widget/parts/shout_list_detail/ShoutListDetailWidget.dart';
 
-
-// ----------------------------------------
-// ユーザーシャウト表示画面
-// ----------------------------------------
+// --------------------------------
+// クラス名 　: UserShoutListWidget
+// クラス概要 : ユーザーシャウト一覧ページ
+// --------------------------------
 class UserShoutListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

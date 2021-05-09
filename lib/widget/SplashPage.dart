@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:receare/firebase/AuthModule.dart';
 import 'package:receare/firebase/FirebaseModule.dart';
 
-// ----------------------------------
-// スプラッシュ画面(最初に表示される画面)
-// ----------------------------------
+// --------------------------------
+// クラス名 　: SplashPage
+// クラス概要 : スプラッシュ画面(最初に表示される画面)
+// --------------------------------
 class SplashPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

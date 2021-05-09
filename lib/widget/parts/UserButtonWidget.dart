@@ -5,10 +5,10 @@ import 'package:receare/firebase/AuthModule.dart';
 import 'package:receare/firebase/UserModule.dart';
 import 'package:receare/widget/user_update_page/UserUpdatePage.dart';
 
-import '../../strings.dart';
+import '../../Strings.dart';
 
 // ----------------------------------------
-// クラス名　: UserButtonWidgetWidget
+// クラス名　: UserButtonWidget
 // クラス概要: Shout明細
 // ----------------------------------------
 class UserButtonWidget extends StatelessWidget {
@@ -27,7 +27,6 @@ class UserButtonWidget extends StatelessWidget {
             .collection(Strings.USERS)
             .doc(user.uid)
             .snapshots(),
-        // ignore: missing_return
         builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> doc) {
           if (!doc.hasData) {
             return Text("");
@@ -104,6 +103,10 @@ class UserButtonWidget extends StatelessWidget {
   }
 }
 
+// --------------------------------
+// クラス名 　: ProfileDataSettingButton
+// クラス概要 : プロフィール設定ボタン
+// --------------------------------
 class ProfileDataSettingButton extends StatelessWidget {
   /* Userドキュメント */ final DocumentSnapshot userDoc;
 
@@ -130,6 +133,10 @@ class ProfileDataSettingButton extends StatelessWidget {
   }
 }
 
+// --------------------------------
+// クラス名 　: FriendButton
+// クラス概要 : フレンドボタン
+// --------------------------------
 class FriendButton extends StatelessWidget {
   final Color color;
   final String uid;
@@ -173,9 +180,10 @@ class FriendButton extends StatelessWidget {
   }
 }
 
-// ------------------------------------
-// 送信取り消しボタンパーツ
-// ------------------------------------
+// --------------------------------
+// クラス名 　: RejectButton
+// クラス概要 : 送信取り消しボタン
+// --------------------------------
 class RejectButton extends StatelessWidget {
   final Color color;
   final String uid;
@@ -195,9 +203,10 @@ class RejectButton extends StatelessWidget {
   }
 }
 
-// ------------------------------------
-// フレンド申請承認ボタンパーツ
-// ------------------------------------
+// --------------------------------
+// クラス名 　: ConfirmButton
+// クラス概要 : フレンド申請承認ボタン
+// --------------------------------
 class ConfirmButton extends StatelessWidget {
   final Color color;
   final String uid;
@@ -224,9 +233,10 @@ class ConfirmButton extends StatelessWidget {
   }
 }
 
-// ------------------------------------
-// フレンド申請送信ボタンパーツ
-// ------------------------------------
+// --------------------------------
+// クラス名 　: SendButton
+// クラス概要 : フレンド申請送信ボタン
+// --------------------------------
 class SendButton extends StatelessWidget {
   final Color color;
   final String uid;

@@ -1,15 +1,15 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:receare/state/user_list_screen/UserListPageNotifier.dart';
-import 'package:receare/state/user_list_screen/UserListPageState.dart';
+import 'package:receare/state/user_list_page/UserListPageNotifier.dart';
+import 'package:receare/state/user_list_page/UserListPageState.dart';
 import 'package:receare/widget/parts/UserListDetailWidget.dart';
 
-import '../../strings.dart';
+import '../../Strings.dart';
 
-// ----------------------------------------
-// ユーザー一覧タブ
-// ----------------------------------------
+// --------------------------------
+// クラス名 　: UserListPage
+// クラス概要 : ユーザー一覧ページ
+// --------------------------------
 class UserListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

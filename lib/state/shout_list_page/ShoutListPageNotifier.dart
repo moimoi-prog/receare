@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:receare/firebase/AuthModule.dart';
-import 'package:receare/state/shout_list_screen/ShoutListPageState.dart';
+import 'package:receare/state/shout_list_page/ShoutListPageState.dart';
 import 'package:state_notifier/state_notifier.dart';
 
-import '../../strings.dart';
+import '../../Strings.dart';
 
 // ------------------------------------
 // クラス名　: ShoutListPageNotifier

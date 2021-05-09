@@ -6,6 +6,10 @@ import 'package:receare/firebase/CommentModule.dart';
 import 'package:receare/state/comment_sender/CommentSenderNotifier.dart';
 import 'package:receare/state/comment_sender/CommentSenderState.dart';
 
+// --------------------------------
+// メソッド名 : showShoutListDetailCommentBottomSheet
+// 処理概要　 : シャウトコメントシート表示
+// --------------------------------
 void showShoutListDetailCommentBottomSheet(
   BuildContext context,
   String shoutId,

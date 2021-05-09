@@ -2,22 +2,22 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:receare/common/CameraModule.dart';
 import 'package:receare/common/CommonModule.dart';
 import 'package:receare/common/LoadingDialog.dart';
 import 'package:receare/firebase/UserModule.dart';
-import 'package:receare/state/user_detail_screen/UserDetailPageNotifier.dart';
+import 'package:receare/state/user_detail_page/UserDetailPageNotifier.dart';
 import 'package:receare/widget/parts/HeaderImageCropPage.dart';
 import 'package:receare/widget/parts/IconImageCropPage.dart';
 import 'package:receare/widget/parts/UserImageWidget.dart';
 
-import '../../strings.dart';
+import '../../Strings.dart';
 
 // --------------------------------
-// ユーザー情報変更画面
+// クラス名 　: UserUpdatePage
+// クラス概要 : ユーザー情報変更画面
 // --------------------------------
 class UserUpdatePage extends StatefulWidget {
   /* Userドキュメント */ final DocumentSnapshot userDoc;
@@ -29,9 +29,10 @@ class UserUpdatePage extends StatefulWidget {
   _UserUpdatePageState createState() => _UserUpdatePageState();
 }
 
-// ----------------------------------------
-// ユーザー情報変更ステータス
-// ----------------------------------------
+// --------------------------------
+// クラス名 　: _UserUpdatePageState
+// クラス概要 : ユーザー情報変更画面ステータス
+// --------------------------------
 class _UserUpdatePageState extends State<UserUpdatePage> {
   /* 画面の横 */
   double width;

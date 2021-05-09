@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:receare/common/CommonModule.dart';
 import 'package:receare/firebase/AuthModule.dart';
-import 'package:receare/state/user_detail_screen/UserDetailPageNotifier.dart';
+import 'package:receare/state/user_detail_page/UserDetailPageNotifier.dart';
 import 'package:receare/widget/parts/shout_list_detail/ShoutListDetailCommentBottomSheet.dart';
 import 'package:receare/widget/parts/shout_list_detail/ShoutListDetailMenuButtomSheet.dart';
 import 'package:receare/widget/parts/shout_list_detail/ShoutListDetailImage.dart';
@@ -13,11 +13,12 @@ import 'package:receare/widget/parts/UserImageWidget.dart';
 import 'package:receare/widget/shout_detail_page/ShoutDetailPage.dart';
 import 'package:receare/widget/user_detail_page/UserDetailPage.dart';
 
-import '../../../strings.dart';
+import '../../../Strings.dart';
 
-// ----------------------------------------
-// シャウト一覧表示パーツ
-// ----------------------------------------
+// --------------------------------
+// クラス名 　: ShoutListDetailWidget
+// クラス概要 : シャウトリスト要素
+// --------------------------------
 class ShoutListDetailWidget extends StatelessWidget {
   final Map<String, dynamic> shoutMap;
   final bool transition;
@@ -135,9 +136,10 @@ class ShoutListDetailWidget extends StatelessWidget {
           subtitle: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
+              
               StreamBuilder(
                 initialData: shoutMap[Strings.IMAGE_PATH],
-                stream: FirebaseFirestore.instance // User情報を取得
+                stream: FirebaseFirestore.instance
                     .collection(Strings.SHOUTS)
                     .doc(shoutMap[Strings.ID])
                     .collection(Strings.IMAGE_PATH)

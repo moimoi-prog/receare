@@ -1,11 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:receare/state/send_application_list_screen/SendApplicationListPageNotifier.dart';
-import 'package:receare/state/send_application_list_screen/SendApplicationListPageState.dart';
+import 'package:receare/state/send_application_list_page/SendApplicationListTabNotifier.dart';
+import 'package:receare/state/send_application_list_page/SendApplicationListTabState.dart';
 import 'package:receare/widget/parts/UserListDetailWidget.dart';
-
-import '../../strings.dart';
 
 // ----------------------------------------
 // 送信フレンドリクエスト表示タブ
@@ -13,7 +11,7 @@ import '../../strings.dart';
 class SendApplicationListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Provider.of<SendApplicationListPageState>(context, listen: true).when(
+    return Provider.of<SendApplicationListTabState>(context, listen: true).when(
       (friendMapList) {
         if (friendMapList.length == 0) {
           return Padding(
@@ -27,7 +25,7 @@ class SendApplicationListPage extends StatelessWidget {
         return RefreshIndicator(
           onRefresh: () async {
             // Shoutを更新する
-            Provider.of<SendApplicationListPageNotifier>(context, listen: false).reload();
+            Provider.of<SendApplicationListTabNotifier>(context, listen: false).reload();
           },
           child: ListView.separated(
             padding: EdgeInsets.only(right: 5.0, left: 5.0),

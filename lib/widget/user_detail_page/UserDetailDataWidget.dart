@@ -3,14 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:receare/common/CommonModule.dart';
 import 'package:receare/widget/parts/UserButtonWidget.dart';
-import 'package:receare/state/user_detail_screen/UserDetailPageState.dart';
+import 'package:receare/state/user_detail_page/UserDetailPageState.dart';
 import 'package:receare/widget/parts/UserImageWidget.dart';
 
-import '../../strings.dart';
+import '../../Strings.dart';
 
-// ------------------------------------
-// プロフィールデータパーツ
-// ------------------------------------
+// --------------------------------
+// クラス名 　: UserDetailDataWidget
+// クラス概要 : ユーザー詳細データ
+// --------------------------------
 class UserDetailDataWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

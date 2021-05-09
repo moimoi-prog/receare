@@ -1,38 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:receare/state/main_screen/MainPageState.dart';
+import 'package:receare/state/main_page/MainPageState.dart';
 import 'package:receare/widget/parts/DrawerMenu.dart';
 import 'package:receare/widget/shout_list_page/ShoutListPage.dart';
 import 'package:receare/widget/user_list_page/UserListPage.dart';
 
-// ----------------------------------------
-// メインページ
-// ----------------------------------------
+// --------------------------------
+// クラス名 　: MainPage
+// クラス概要 : メインページ
+// --------------------------------
 class MainPage extends StatefulWidget {
   _MainForm createState() => _MainForm();
 }
 
-// ----------------------------------------
-// メインステータス
-// ----------------------------------------
+// --------------------------------
+// クラス名 　: _MainForm
+// クラス概要 : メインステージフォーム
+// --------------------------------
 class _MainForm extends State<MainPage> {
   // 変数を宣言
-  /* タブインデックス */
-  int _selectedIndex = 0;
+  /* タブインデックス */ int _selectedIndex = 0;
+  /* コントローラー　 */ PageController _pageController;
 
-  int _myEventTabIndex = 0;
-
-  /* コントローラー　 */
-  PageController _pageController;
-
+  // --------------------------------
+  // メソッド名 : _onPageChanged
+  // 処理概要　 : タブを切り替える
+  // --------------------------------
   void _onPageChanged(int index) {
     setState(() {
       _selectedIndex = index;
     });
-  }
-
-  void myEventTabChange(int index) {
-    _myEventTabIndex = index;
   }
 
   @override
@@ -61,13 +58,15 @@ class _MainForm extends State<MainPage> {
               controller: _pageController,
               onPageChanged: _onPageChanged,
               children: [
+                // フレンドシャウトリスト
                 ShoutListPage(),
+
+                // ユーザーリスト
                 UserListPage(),
               ],
             ),
             bottomNavigationBar: BottomNavigationBar(
               backgroundColor: Theme.of(context).primaryColor,
-              // backgroundColor: Colors.black,
               selectedItemColor: Colors.white,
               unselectedItemColor: Colors.grey,
               currentIndex: _selectedIndex,

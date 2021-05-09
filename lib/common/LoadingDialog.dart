@@ -1,9 +1,10 @@
 
 import 'package:flutter/material.dart';
 
-// -----------------------------------------
-// Loading中であることを表示する
-// -----------------------------------------
+// --------------------------------
+// メソッド名 : showLoadingDialog
+// 処理概要　 : 処理中ダイアログを表示する
+// --------------------------------
 void showLoadingDialog(BuildContext context) async{
   showGeneralDialog(
       context: context,

@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:receare/state/user_detail_screen/UserDetailPageState.dart';
+import 'package:receare/state/user_detail_page/UserDetailPageState.dart';
 import 'package:state_notifier/state_notifier.dart';
 
-import '../../strings.dart';
+import '../../Strings.dart';
 
 // ------------------------------------
 // クラス名　: UserDetailPageNotifier

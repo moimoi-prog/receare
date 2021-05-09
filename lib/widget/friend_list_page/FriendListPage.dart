@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:receare/state/friend_list_screen/FriendListPageNotifier.dart';
-import 'package:receare/state/friend_list_screen/FriendListPageState.dart';
+import 'package:receare/state/friend_list_page/FriendListPageNotifier.dart';
+import 'package:receare/state/friend_list_page/FriendListPageState.dart';
 import 'package:receare/widget/parts/UserListDetailWidget.dart';
 
-
-// ----------------------------------------
-// フレンド一覧タブ
-// ----------------------------------------
+// --------------------------------
+// クラス名 　: FriendListPage
+// クラス概要 : フレンド一覧ページ
+// --------------------------------
 class FriendListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

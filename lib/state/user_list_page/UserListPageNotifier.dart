@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
-import 'package:receare/state/user_list_screen/UserListPageState.dart';
+import 'package:receare/state/user_list_page/UserListPageState.dart';
 import 'package:state_notifier/state_notifier.dart';
 
-import '../../strings.dart';
+import '../../Strings.dart';
+import 'UserListPageState.dart';
 
 // ------------------------------------
 // クラス名　: UserListPageNotifier

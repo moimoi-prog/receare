@@ -6,10 +6,14 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:receare/firebase/AuthModule.dart';
 import 'package:receare/firebase/ShoutModule.dart';
-import 'package:receare/state/shout_list_screen/ShoutListPageNotifier.dart';
+import 'package:receare/state/shout_list_page/ShoutListPageNotifier.dart';
 
-import '../../../strings.dart';
+import '../../../Strings.dart';
 
+// --------------------------------
+// メソッド名 : showShoutListDetailMenuBottomSheet
+// 処理概要　 : シャウトメニューシート表示
+// --------------------------------
 void showShoutListDetailMenuBottomSheet(BuildContext context, DocumentSnapshot shoutDoc) {
   if (shoutDoc.data()[Strings.UID] == user.uid) {
     showModalBottomSheet<int>(

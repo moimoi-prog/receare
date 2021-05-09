@@ -7,9 +7,10 @@ import 'package:firebase_storage/firebase_storage.dart';
 // ------------------------------
 FirebaseStorage storage = FirebaseStorage();
 
-// ------------------------------
-// 画像をアップロード
-// ------------------------------
+// --------------------------------
+// メソッド名 : uploadImage
+// 処理概要　 : 画像をアップロード
+// --------------------------------
 Future<String> uploadImage(File file) async {
   String subDirectoryName = "images";
   int timestamp = DateTime.now().millisecondsSinceEpoch;
@@ -62,9 +63,10 @@ Future<String> uploadImage(File file) async {
 
 }
 
-// ------------------------------
-// shout画像をアップロード
-// ------------------------------
+// --------------------------------
+// メソッド名 : uploadShoutImage
+// 処理概要　 : シャウト画像をアップロード
+// --------------------------------
 Future<String> uploadShoutImage(List<int> file) async {
   String subDirectoryName = "shouts";
   int timestamp = DateTime.now().millisecondsSinceEpoch;
