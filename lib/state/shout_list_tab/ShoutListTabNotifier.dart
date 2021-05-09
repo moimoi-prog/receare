@@ -17,8 +17,6 @@ class ShoutListTabNotifier extends StateNotifier<ShoutListTabState> with Locator
   void initState() async {
     super.initState();
 
-    /** シャウト一覧に表示するユーザーのIDをリストに格納する */
-    /** 自分のIDとフレンドのID */
     // フレンド一覧を取得
     List<DocumentSnapshot> friendDocs = (await FirebaseFirestore.instance
         .collection(Const.USERS)
@@ -37,7 +35,6 @@ class ShoutListTabNotifier extends StateNotifier<ShoutListTabState> with Locator
     // uidリストに自分のUIDを格納
     uids.add(user.uid);
 
-    /** シャウト一覧を取得する */
     // シャウト一覧を取得する
     List<DocumentSnapshot> shoutDocs = (await FirebaseFirestore.instance
         .collection(Const.SHOUTS)
@@ -85,17 +82,18 @@ class ShoutListTabNotifier extends StateNotifier<ShoutListTabState> with Locator
       shoutDataList.add(sd);
     }
 
-    /** stateを初期化する */
+    // stateを初期化する
     state = ShoutListTabState(shoutDataList: shoutDataList);
   }
 
-  // documentを読み込む
+  // --------------------------------
+  // メソッド名 : reload
+  // 処理概要　 : 再読み込みを行う
+  // --------------------------------
   void reload() async {
     // 現在のステータスを取得
     final currentState = state;
 
-    /** シャウト一覧に表示するユーザーのIDをリストに格納する */
-    /** 自分のIDとフレンドのID */
     // フレンド一覧を取得
     List<DocumentSnapshot> friendDocs = (await FirebaseFirestore.instance
         .collection(Const.USERS)
@@ -114,7 +112,6 @@ class ShoutListTabNotifier extends StateNotifier<ShoutListTabState> with Locator
     // uidリストに自分のUIDを格納
     uids.add(user.uid);
 
-    /** シャウト一覧を取得する */
     // シャウト一覧を取得する
     List<DocumentSnapshot> shoutDocs = (await FirebaseFirestore.instance
         .collection(Const.SHOUTS)
@@ -158,23 +155,27 @@ class ShoutListTabNotifier extends StateNotifier<ShoutListTabState> with Locator
         imagePathQuery: imagePathQuery,
       );
 
-      // rシャウトデータをリストに格納
+      // シャウトデータをリストに格納
       shoutDataList.add(sd);
     }
 
+    // stateを更新
     if (currentState is ShoutListTabStateData) {
-      // stateを更新
       state = currentState.copyWith(shoutDataList: shoutDataList);
     } else {
       state = ShoutListTabState(shoutDataList: shoutDataList);
     }
   }
 
-  // documentを読み込む
+  // --------------------------------
+  // メソッド名 : reloadComments
+  // 処理概要　 : コメントの際読み込みを行う
+  // --------------------------------
   void reloadComments(String shoutId) async {
     // 現在のステータスを取得
     final currentState = state;
 
+    // コメントデータを取得
     QuerySnapshot commentQuery = (await FirebaseFirestore.instance
         .collection(Const.SHOUTS)
         .doc(shoutId)
@@ -182,9 +183,10 @@ class ShoutListTabNotifier extends StateNotifier<ShoutListTabState> with Locator
         .orderBy(Const.CREATE, descending: true)
         .get());
 
-    // 登録するMapを生成
+    // コメントデータを格納するマップを生成
     List<ShoutData> shoutDataList = [];
 
+    // stateを更新
     if (currentState is ShoutListTabStateData) {
       for (ShoutData sd in currentState.shoutDataList) {
         if (shoutId == sd.id) {

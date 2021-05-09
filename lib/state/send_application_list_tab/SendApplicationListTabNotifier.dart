@@ -17,21 +17,20 @@ class SendApplicationListTabNotifier extends StateNotifier<SendApplicationListTa
   void initState() async {
     super.initState();
 
-    // ----------------------------------
-    // 受信申請を取得する
-    // ----------------------------------
-    List<DocumentSnapshot> sendDocs = (await FirebaseFirestore.instance // フレンド一覧を取得
+    // 送信リクエスト一覧を取得する
+    List<DocumentSnapshot> sendDocs = (await FirebaseFirestore.instance
         .collection(Const.USERS)
         .doc(user.uid)
         .collection(Const.SEND_APPLICATIONS)
         .get())
         .docs;
 
-    // 登録するMapを生成
+    // リクエストを格納するマップを生成
     List<Map<String, dynamic>> sendMapList = [];
 
+    // マップに格納
     for (DocumentSnapshot sendDoc in sendDocs) {
-      DocumentSnapshot userDoc = await FirebaseFirestore.instance // 申請者情報を取得
+      DocumentSnapshot userDoc = await FirebaseFirestore.instance
           .collection(Const.USERS)
           .doc(sendDoc.data()[Const.UID])
           .get();
@@ -45,31 +44,34 @@ class SendApplicationListTabNotifier extends StateNotifier<SendApplicationListTa
       sendMapList.add(map);
     }
 
+    // stateを更新
     state = SendApplicationListTabState(
       sendMapList: sendMapList,
     );
   }
 
-  // documentを読み込む
+  // --------------------------------
+  // メソッド名 : reload
+  // 処理概要　 : 際読み込みを行う
+  // --------------------------------
   Future reload() async {
     // 現在のステータスを取得
     final currentState = state;
 
-    // ----------------------------------
-    // 受信申請を取得する
-    // ----------------------------------
-    List<DocumentSnapshot> sendDocs = (await FirebaseFirestore.instance // フレンド一覧を取得
+    // 送信リクエスト一覧を取得する
+    List<DocumentSnapshot> sendDocs = (await FirebaseFirestore.instance
         .collection(Const.USERS)
         .doc(user.uid)
         .collection(Const.SEND_APPLICATIONS)
         .get())
         .docs;
 
-    // 登録するMapを生成
+    // リクエストを格納するマップを生成
     List<Map<String, dynamic>> sendMapList = [];
 
+    // マップに格納
     for (DocumentSnapshot sendDoc in sendDocs) {
-      DocumentSnapshot userDoc = await FirebaseFirestore.instance // 申請者情報を取得
+      DocumentSnapshot userDoc = await FirebaseFirestore.instance
           .collection(Const.USERS)
           .doc(sendDoc.data()[Const.UID])
           .get();
@@ -83,6 +85,7 @@ class SendApplicationListTabNotifier extends StateNotifier<SendApplicationListTa
       sendMapList.add(map);
     }
 
+    // stateを更新
     if (currentState is SendApplicationListTabStateData) {
       // stateを更新
       state = currentState.copyWith(

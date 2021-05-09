@@ -47,7 +47,7 @@ void showShoutListDetailCommentBottomSheet(
                       onPressed: !Provider.of<CommentSenderState>(context, listen: true).enabled
                           ? null
                           : () async {
-                              await registerComment(shoutId, Provider.of<CommentSenderNotifier>(context, listen: false).getText());
+                              await registerComment(shoutId, Provider.of<CommentSenderState>(context, listen: true).commentController.text);
                               Provider.of<CommentSenderNotifier>(context, listen: false).reset();
                               FocusScope.of(context).requestFocus(FocusNode());
                               Navigator.of(context).pop();

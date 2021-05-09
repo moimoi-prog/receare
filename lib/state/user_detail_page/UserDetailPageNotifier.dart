@@ -16,7 +16,10 @@ class UserDetailPageNotifier extends StateNotifier<UserDetailPageState> with Loc
     super.initState();
   }
 
-  // 全データ読込
+  // --------------------------------
+  // メソッド名 : load
+  // 処理概要　 : ユーザー情報を全て読み込み
+  // --------------------------------
   Future<void> load(String uid) async {
     final currentState = state;
 
@@ -63,7 +66,7 @@ class UserDetailPageNotifier extends StateNotifier<UserDetailPageState> with Loc
         imagePathQuery: imagePathQuery,
       );
 
-      // rシャウトデータをリストに格納
+      // シャウトデータをリストに格納
       shoutDataList.add(sd);
     }
 
@@ -81,13 +84,20 @@ class UserDetailPageNotifier extends StateNotifier<UserDetailPageState> with Loc
     }
   }
 
-  // ユーザー読込
+  // --------------------------------
+  // メソッド名 : loadUser
+  // 処理概要　 : ユーザーの詳細情報のみを読み込み
+  // --------------------------------
   Future<void> loadUser(String uid) async {
     final currentState = state;
 
     if (currentState is UserDetailPageStateData) {
+
       // user情報を取得
-      DocumentSnapshot userDoc = (await FirebaseFirestore.instance.collection(Const.USERS).doc(uid).get());
+      DocumentSnapshot userDoc = (await FirebaseFirestore.instance
+          .collection(Const.USERS)
+          .doc(uid)
+          .get());
 
       // stateを更新
       state = currentState.copyWith(
@@ -97,7 +107,10 @@ class UserDetailPageNotifier extends StateNotifier<UserDetailPageState> with Loc
     }
   }
 
-  // Shout読込
+  // --------------------------------
+  // メソッド名 : loadShout
+  // 処理概要　 : ユーザーのシャウト情報のみを読み込み
+  // --------------------------------
   Future<void> loadShout(String uid) async {
     final currentState = state;
 
@@ -158,7 +171,10 @@ class UserDetailPageNotifier extends StateNotifier<UserDetailPageState> with Loc
     }
   }
 
-  // Shout読込
+// --------------------------------
+// メソッド名 : reloadShout
+// 処理概要　 : ユーザーのシャウト情報のみを再読み込み
+// --------------------------------
   Future<void> reloadShout() async {
     final currentState = state;
 
@@ -218,7 +234,10 @@ class UserDetailPageNotifier extends StateNotifier<UserDetailPageState> with Loc
     }
   }
 
-  // 初期化
+// --------------------------------
+// メソッド名 :
+// 処理概要　 :
+// --------------------------------
   void reset() {
     if (state is UserDetailPageStateData) {
       state = UserDetailPageState.loading();

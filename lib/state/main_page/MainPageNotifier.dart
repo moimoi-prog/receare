@@ -19,12 +19,20 @@ class MainPageNotifier extends StateNotifier<MainPageState> with LocatorMixin {
     state = MainPageState(myEventTabIndex: 1);
   }
 
+  // --------------------------------
+  // メソッド名 : setIndex
+  // 処理概要　 : タブインデックスを更新する
+  // --------------------------------
   void setIndex(int i) {
     state = MainPageState(
       myEventTabIndex: i,
     );
   }
 
+  // --------------------------------
+  // メソッド名 : getIndex
+  // 処理概要　 : タブインデックスを取得する
+  // --------------------------------
   int getIndex() {
     final currentState = state;
 

@@ -23,6 +23,10 @@ class ShoutCreatePageNotifier extends StateNotifier<ShoutCreatePageState> with L
     );
   }
 
+  // --------------------------------
+  // メソッド名 : setDoc
+  // 処理概要　 : ドキュメントをセットする
+  // --------------------------------
   void setDoc(DocumentSnapshot shoutDoc) async {
     state = ShoutCreatePageState(
       enabled: false,
@@ -33,7 +37,10 @@ class ShoutCreatePageNotifier extends StateNotifier<ShoutCreatePageState> with L
     );
   }
 
-  // 更新
+  // --------------------------------
+  // メソッド名 : setEnabled
+  // 処理概要　 : 送信ボタンの活性化状態を変更する
+  // --------------------------------
   void setEnabled(bool flag) {
     final currentState = state;
 
@@ -46,6 +53,10 @@ class ShoutCreatePageNotifier extends StateNotifier<ShoutCreatePageState> with L
     );
   }
 
+  // --------------------------------
+  // メソッド名 : setDetail
+  // 処理概要　 : 文章をセットする
+  // --------------------------------
   void setDetail(String detail) {
     final currentState = state;
 
@@ -58,6 +69,10 @@ class ShoutCreatePageNotifier extends StateNotifier<ShoutCreatePageState> with L
     );
   }
 
+  // --------------------------------
+  // メソッド名 : setImage
+  // 処理概要　 : 画像をセットする
+  // --------------------------------
   void setImage(List<Asset> imageList) {
     final currentState = state;
 
@@ -70,6 +85,10 @@ class ShoutCreatePageNotifier extends StateNotifier<ShoutCreatePageState> with L
     );
   }
 
+  // --------------------------------
+  // メソッド名 : reset
+  // 処理概要　 : stateをリセットする
+  // --------------------------------
   void reset() {
     state = ShoutCreatePageState(
       enabled: false,

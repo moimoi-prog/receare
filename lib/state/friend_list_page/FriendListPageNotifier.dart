@@ -17,9 +17,7 @@ class FriendListPageNotifier extends StateNotifier<FriendListPageState> with Loc
   void initState() async {
     super.initState();
 
-    // ----------------------------------
-    // フレンドを取得する
-    // ----------------------------------
+    // フレンド一覧を取得する
     List<DocumentSnapshot> friendDocs = (await FirebaseFirestore.instance // フレンド一覧を取得
         .collection(Const.USERS)
         .doc(user.uid)
@@ -27,11 +25,12 @@ class FriendListPageNotifier extends StateNotifier<FriendListPageState> with Loc
         .get())
         .docs;
 
-    // 登録するMapを生成
+    // 取得したデータを格納するマップの生成
     List<Map<String, dynamic>> friendMapList = [];
 
+    // マップに格納
     for (DocumentSnapshot friendDoc in friendDocs) {
-      DocumentSnapshot userDoc = await FirebaseFirestore.instance // 申請者情報を取得
+      DocumentSnapshot userDoc = await FirebaseFirestore.instance
           .collection(Const.USERS)
           .doc(friendDoc.data()[Const.UID])
           .get();
@@ -45,31 +44,34 @@ class FriendListPageNotifier extends StateNotifier<FriendListPageState> with Loc
       friendMapList.add(map);
     }
 
+    // stateを更新する
     state = FriendListPageState(
       friendMapList: friendMapList,
     );
   }
 
-  // documentを読み込む
+  // --------------------------------
+  // メソッド名 : reload
+  // 処理概要　 : 際読み込みを行う
+  // --------------------------------
   void reload() async {
     // 現在のステータスを取得
     final currentState = state;
 
-    // ----------------------------------
-    // フレンドを取得する
-    // ----------------------------------
-    List<DocumentSnapshot> friendDocs = (await FirebaseFirestore.instance // フレンド一覧を取得
+    // フレンド一覧を取得する
+    List<DocumentSnapshot> friendDocs = (await FirebaseFirestore.instance
         .collection(Const.USERS)
         .doc(user.uid)
         .collection(Const.FRIENDS)
         .get())
         .docs;
 
-    // 登録するMapを生成
+    // 取得したデータを格納するマップの生成
     List<Map<String, dynamic>> friendMapList = [];
 
+    // マップに格納
     for (DocumentSnapshot friendDoc in friendDocs) {
-      DocumentSnapshot userDoc = await FirebaseFirestore.instance // 申請者情報を取得
+      DocumentSnapshot userDoc = await FirebaseFirestore.instance
           .collection(Const.USERS)
           .doc(friendDoc.data()[Const.UID])
           .get();
@@ -83,6 +85,7 @@ class FriendListPageNotifier extends StateNotifier<FriendListPageState> with Loc
       friendMapList.add(map);
     }
 
+    // stateを更新する
     if (currentState is FriendListPageStateData) {
       // stateを更新
       state = currentState.copyWith(

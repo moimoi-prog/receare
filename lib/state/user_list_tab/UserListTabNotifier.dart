@@ -15,15 +15,17 @@ class UserListTabNotifier extends StateNotifier<UserListTabState> with LocatorMi
   void initState() async {
     super.initState();
 
-    List<DocumentSnapshot> docs = (await FirebaseFirestore.instance // ユーザー一覧を取得
+    // ユーザー一覧を取得
+    List<DocumentSnapshot> docs = (await FirebaseFirestore.instance
         .collection(Const.USERS)
         .orderBy(Const.UPDATE, descending: true)
         .get()
     ).docs;
 
-    // 登録するMapを生成
+    // ユーザーデータを格納するマップの生成
     List<Map<String, dynamic>> userMapList = [];
 
+    // ユーザーデータを格納する
     for (DocumentSnapshot doc in docs) {
       Map<String, dynamic> map = {
         Const.ID: doc.id,
@@ -33,25 +35,31 @@ class UserListTabNotifier extends StateNotifier<UserListTabState> with LocatorMi
       userMapList.add(map);
     }
 
+    // stateを更新する
     state = UserListTabState(
         userMapList: userMapList
     );
   }
 
-  // documentを読み込む
+  // --------------------------------
+  // メソッド名 : reload
+  // 処理概要　 : 再読み込みを行う
+  // --------------------------------
   void reload() async {
     // 現在のステータスを取得
     final currentState = state;
 
-    List<DocumentSnapshot> docs = (await FirebaseFirestore.instance // ユーザー一覧を取得
+    // ユーザー一覧を取得
+    List<DocumentSnapshot> docs = (await FirebaseFirestore.instance
         .collection(Const.USERS)
         .orderBy(Const.CREATE, descending: true)
         .get()
     ).docs;
 
-    // 登録するMapを生成
+    // ユーザー情報を格納するマップを生成
     List<Map<String, dynamic>> userMapList = [];
 
+    // マップに格納
     for (DocumentSnapshot doc in docs) {
       Map<String, dynamic> map = {
         Const.ID: doc.id,
@@ -61,6 +69,7 @@ class UserListTabNotifier extends StateNotifier<UserListTabState> with LocatorMi
       userMapList.add(map);
     }
 
+    // stateを更新
     if (currentState is UserListTabStateData) {
       // stateを更新
       state = currentState.copyWith(

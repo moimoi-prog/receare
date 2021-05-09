@@ -6,7 +6,7 @@ part 'CommentSenderState.freezed.dart';
 
 // ----------------------------------------
 // クラス名　: CommentSenderState
-// クラス概要: Comment送信蘭State
+// クラス概要: Comment送信欄State
 // ----------------------------------------
 @freezed
 abstract class CommentSenderState with _$CommentSenderState {

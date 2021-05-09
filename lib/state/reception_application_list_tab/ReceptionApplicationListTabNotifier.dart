@@ -16,21 +16,20 @@ class ReceptionApplicationListTabNotifier extends StateNotifier<ReceptionApplica
   void initState() async {
     super.initState();
 
-    // ----------------------------------
-    // 受信申請を取得する
-    // ----------------------------------
-    List<DocumentSnapshot> receptionDocs = (await FirebaseFirestore.instance // フレンド一覧を取得
+    // 受信リクエスト一覧を取得する
+    List<DocumentSnapshot> receptionDocs = (await FirebaseFirestore.instance
         .collection(Const.USERS)
         .doc(user.uid)
         .collection(Const.RECEPTION_APPLICATIONS)
         .get())
         .docs;
 
-    // 登録するMapを生成
+    // リクエストを格納するマップを生成
     List<Map<String, dynamic>> receptionMapList = [];
 
+    // マップに格納
     for (DocumentSnapshot friendDoc in receptionDocs) {
-      DocumentSnapshot userDoc = await FirebaseFirestore.instance // 申請者情報を取得
+      DocumentSnapshot userDoc = await FirebaseFirestore.instance
           .collection(Const.USERS)
           .doc(friendDoc.data()[Const.UID])
           .get();
@@ -44,19 +43,21 @@ class ReceptionApplicationListTabNotifier extends StateNotifier<ReceptionApplica
       receptionMapList.add(map);
     }
 
+    // stateを更新する
     state = ReceptionApplicationListTabState(
       receptionMapList: receptionMapList,
     );
   }
 
-  // documentを読み込む
+  // --------------------------------
+  // メソッド名 : reload
+  // 処理概要　 : 際読み込みを行う
+  // --------------------------------
   void reload() async {
     // 現在のステータスを取得
     final currentState = state;
 
-    // ----------------------------------
-    // 受信申請を取得する
-    // ----------------------------------
+    // 受信リクエスト一覧を取得する
     List<DocumentSnapshot> receptionDocs = (await FirebaseFirestore.instance // フレンド一覧を取得
         .collection(Const.USERS)
         .doc(user.uid)
@@ -64,9 +65,10 @@ class ReceptionApplicationListTabNotifier extends StateNotifier<ReceptionApplica
         .get())
         .docs;
 
-    // 登録するMapを生成
+    // リクエストを格納するマップを生成
     List<Map<String, dynamic>> receptionMapList = [];
 
+    // マップに格納する
     for (DocumentSnapshot friendDoc in receptionDocs) {
       DocumentSnapshot userDoc = await FirebaseFirestore.instance // 申請者情報を取得
           .collection(Const.USERS)
@@ -82,6 +84,7 @@ class ReceptionApplicationListTabNotifier extends StateNotifier<ReceptionApplica
       receptionMapList.add(map);
     }
 
+    //stateを更新する
     if (currentState is ReceptionApplicationListTabStateData) {
       // stateを更新
       state = currentState.copyWith(
