@@ -1,12 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:receare/data/ShoutData.dart';
 import 'package:receare/state/user_detail_page/UserDetailPageState.dart';
 import 'package:state_notifier/state_notifier.dart';
 
-import '../../Strings.dart';
+import '../../Const.dart';
 
 // ------------------------------------
 // クラス名　: UserDetailPageNotifier
-// クラス概要: Shout一覧タブNotifier
+// クラス概要: ユーザー詳細ページNotifier
 // ------------------------------------
 class UserDetailPageNotifier extends StateNotifier<UserDetailPageState> with LocatorMixin {
   UserDetailPageNotifier() : super(UserDetailPageState.loading());
@@ -20,57 +21,78 @@ class UserDetailPageNotifier extends StateNotifier<UserDetailPageState> with Loc
     final currentState = state;
 
     // user情報を取得
-    DocumentSnapshot userDoc = (await FirebaseFirestore.instance.collection(Strings.USERS).doc(uid).get());
+    DocumentSnapshot userDoc = (await FirebaseFirestore.instance
+        .collection(Const.USERS)
+        .doc(uid)
+        .get());
 
     // shout情報を取得
-    QuerySnapshot shoutQuery = (await FirebaseFirestore.instance.collection(Strings.SHOUTS).where(Strings.UID, isEqualTo: uid).orderBy(Strings.UPDATE, descending: true).get());
+    List<DocumentSnapshot> shoutDocs = (await FirebaseFirestore.instance
+        .collection(Const.SHOUTS)
+        .where(Const.UID, isEqualTo: uid)
+        .orderBy(Const.UPDATE, descending: true)
+        .get()).docs;
 
-    // 登録するMapを生成
-    List<Map<String, dynamic>> shoutMapList = [];
+    // シャウトごとのコメントと画像を取得し、シャウトデータリストを生成
+    List<ShoutData> shoutDataList = [];
 
-    for (DocumentSnapshot doc in shoutQuery.docs) {
-      Map<String, dynamic> map = {
-        Strings.ID: doc.id,
-        Strings.SHOUT: doc,
-        Strings.UID: doc.data()[Strings.UID],
-        Strings.DETAIL: doc.data()[Strings.DETAIL],
-        Strings.IMAGE_PATH: doc.data()[Strings.IMAGE_PATH],
-        Strings.COMMENTS: null,
-        Strings.CREATE: doc.data()[Strings.CREATE],
-        Strings.READ: doc.data()[Strings.READ],
-        Strings.UPDATE: doc.data()[Strings.UPDATE],
-        Strings.DELETE: doc.data()[Strings.DELETE],
-      };
+    for (DocumentSnapshot shoutDoc in shoutDocs) {
+      // コメントを取得
+      QuerySnapshot commentQuery = (await FirebaseFirestore.instance
+          .collection(Const.SHOUTS)
+          .doc(shoutDoc.id)
+          .collection(Const.COMMENTS)
+          .orderBy(Const.CREATE, descending: true)
+          .get());
 
-      shoutMapList.add(map);
+      // 画像パスを取得
+      QuerySnapshot imagePathQuery = (await FirebaseFirestore.instance
+          .collection(Const.SHOUTS)
+          .doc(shoutDoc.id)
+          .collection(Const.IMAGE_PATH)
+          .orderBy(Const.INDEX)
+          .get());
+
+      // シャウトデータを生成
+      ShoutData sd = ShoutData(
+        id: shoutDoc.id,
+        uid: userDoc.id,
+        userDoc: userDoc,
+        detail: shoutDoc,
+        commentQuery: commentQuery,
+        imagePathQuery: imagePathQuery,
+      );
+
+      // rシャウトデータをリストに格納
+      shoutDataList.add(sd);
     }
 
     if (currentState is UserDetailPageStateData) {
       // stateを更新
       state = currentState.copyWith(
         userDoc: userDoc,
-        shoutMapList: shoutMapList,
+        shoutDataList: shoutDataList,
       );
     } else {
       state = UserDetailPageState(
         userDoc: userDoc,
-        shoutMapList: shoutMapList,
+        shoutDataList: shoutDataList,
       );
     }
   }
 
-  // Shout読込
+  // ユーザー読込
   Future<void> loadUser(String uid) async {
     final currentState = state;
 
     if (currentState is UserDetailPageStateData) {
       // user情報を取得
-      DocumentSnapshot userDoc = (await FirebaseFirestore.instance.collection(Strings.USERS).doc(uid).get());
+      DocumentSnapshot userDoc = (await FirebaseFirestore.instance.collection(Const.USERS).doc(uid).get());
 
       // stateを更新
       state = currentState.copyWith(
         userDoc: userDoc,
-        shoutMapList: currentState.shoutMapList,
+        shoutDataList: currentState.shoutDataList,
       );
     }
   }
@@ -79,74 +101,119 @@ class UserDetailPageNotifier extends StateNotifier<UserDetailPageState> with Loc
   Future<void> loadShout(String uid) async {
     final currentState = state;
 
+    // シャウト一覧を取得する
+    List<DocumentSnapshot> shoutDocs = (await FirebaseFirestore.instance
+        .collection(Const.SHOUTS)
+        .where(Const.UID, isEqualTo: uid)
+        .orderBy(Const.UPDATE, descending: true)
+        .get())
+        .docs;
+
     if (currentState is UserDetailPageStateData) {
-      // shout情報を取得
-      QuerySnapshot shoutQuery = (await FirebaseFirestore.instance.collection(Strings.SHOUTS).where(Strings.UID, isEqualTo: uid).orderBy(Strings.UPDATE, descending: true).get());
+      // シャウトごとのユーザー情報とコメントと画像を取得し、シャウトデータリストを生成
+      List<ShoutData> shoutDataList = [];
 
-      // 登録するMapを生成
-      List<Map<String, dynamic>> shoutMapList = [];
+      for (DocumentSnapshot shoutDoc in shoutDocs) {
+        DocumentSnapshot userDoc = (await FirebaseFirestore.instance
+            .collection(Const.USERS)
+            .doc(shoutDoc.data()[Const.UID])
+            .get());
 
-      for (DocumentSnapshot doc in shoutQuery.docs) {
-        Map<String, dynamic> map = {
-          Strings.ID: doc.id,
-          Strings.SHOUT: doc,
-          Strings.UID: doc.data()[Strings.UID],
-          Strings.DETAIL: doc.data()[Strings.DETAIL],
-          Strings.IMAGE_PATH: doc.data()[Strings.IMAGE_PATH],
-          Strings.COMMENTS: null,
-          Strings.CREATE: doc.data()[Strings.CREATE],
-          Strings.READ: doc.data()[Strings.READ],
-          Strings.UPDATE: doc.data()[Strings.UPDATE],
-          Strings.DELETE: doc.data()[Strings.DELETE],
-        };
+        // コメントを取得
+        QuerySnapshot commentQuery = (await FirebaseFirestore.instance
+            .collection(Const.SHOUTS)
+            .doc(shoutDoc.id)
+            .collection(Const.COMMENTS)
+            .orderBy(Const.CREATE, descending: true)
+            .get());
 
-        shoutMapList.add(map);
+        // 画像パスを取得
+        QuerySnapshot imagePathQuery = (await FirebaseFirestore.instance
+            .collection(Const.SHOUTS)
+            .doc(shoutDoc.id)
+            .collection(Const.IMAGE_PATH)
+            .orderBy(Const.INDEX)
+            .get());
+
+        // シャウトデータを生成
+        ShoutData sd = ShoutData(
+          id: shoutDoc.id,
+          uid: userDoc.id,
+          userDoc: userDoc,
+          detail: shoutDoc,
+          commentQuery: commentQuery,
+          imagePathQuery: imagePathQuery,
+        );
+
+
+        // rシャウトデータをリストに格納
+        shoutDataList.add(sd);
       }
 
       // stateを更新
       state = currentState.copyWith(
         userDoc: currentState.userDoc,
-        shoutMapList: shoutMapList,
+        shoutDataList: shoutDataList,
       );
     }
   }
 
-  // 全データ読込
+  // Shout読込
   Future<void> reloadShout() async {
     final currentState = state;
 
     if (currentState is UserDetailPageStateData) {
-      // shout情報を取得
-      QuerySnapshot shoutQuery = (await FirebaseFirestore.instance
-          .collection(Strings.SHOUTS)
-          .where(Strings.UID, isEqualTo: currentState.userDoc.id)
-          .orderBy(Strings.UPDATE, descending: true)
-          .get());
+      // シャウト一覧を取得する
+      List<DocumentSnapshot> shoutDocs = (await FirebaseFirestore.instance
+          .collection(Const.SHOUTS)
+          .where(Const.UID, isEqualTo: currentState.userDoc.id)
+          .orderBy(Const.UPDATE, descending: true)
+          .get())
+          .docs;
 
-      // 登録するMapを生成
-      List<Map<String, dynamic>> shoutMapList = [];
+      // シャウトごとのユーザー情報とコメントと画像を取得し、シャウトデータリストを生成
+      List<ShoutData> shoutDataList = [];
 
-      for (DocumentSnapshot doc in shoutQuery.docs) {
-        Map<String, dynamic> map = {
-          Strings.ID: doc.id,
-          Strings.SHOUT: doc,
-          Strings.UID: doc.data()[Strings.UID],
-          Strings.DETAIL: doc.data()[Strings.DETAIL],
-          Strings.IMAGE_PATH: doc.data()[Strings.IMAGE_PATH],
-          Strings.COMMENTS: null,
-          Strings.CREATE: doc.data()[Strings.CREATE],
-          Strings.READ: doc.data()[Strings.READ],
-          Strings.UPDATE: doc.data()[Strings.UPDATE],
-          Strings.DELETE: doc.data()[Strings.DELETE],
-        };
+      for (DocumentSnapshot shoutDoc in shoutDocs) {
+        DocumentSnapshot userDoc = (await FirebaseFirestore.instance
+            .collection(Const.USERS)
+            .doc(shoutDoc.data()[Const.UID])
+            .get());
 
-        shoutMapList.add(map);
+        // コメントを取得
+        QuerySnapshot commentQuery = (await FirebaseFirestore.instance
+            .collection(Const.SHOUTS)
+            .doc(shoutDoc.id)
+            .collection(Const.COMMENTS)
+            .orderBy(Const.CREATE, descending: true)
+            .get());
+
+        // 画像パスを取得
+        QuerySnapshot imagePathQuery = (await FirebaseFirestore.instance
+            .collection(Const.SHOUTS)
+            .doc(shoutDoc.id)
+            .collection(Const.IMAGE_PATH)
+            .orderBy(Const.INDEX)
+            .get());
+
+        // シャウトデータを生成
+        ShoutData sd = ShoutData(
+          id: shoutDoc.id,
+          uid: userDoc.id,
+          userDoc: userDoc,
+          detail: shoutDoc,
+          commentQuery: commentQuery,
+          imagePathQuery: imagePathQuery,
+        );
+
+        // rシャウトデータをリストに格納
+        shoutDataList.add(sd);
       }
 
       // stateを更新
       state = currentState.copyWith(
         userDoc: currentState.userDoc,
-        shoutMapList: shoutMapList,
+        shoutDataList: shoutDataList,
       );
     }
   }

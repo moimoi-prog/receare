@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
+import 'package:receare/widget/page/user_detail_page/UserDetailPage.dart';
 import 'package:receare/widget/parts/UserButtonWidget.dart';
 import 'package:receare/state/user_detail_page/UserDetailPageNotifier.dart';
 import 'package:receare/widget/parts/UserImageWidget.dart';
-import 'package:receare/widget/user_detail_page/UserDetailPage.dart';
 
-import '../../Strings.dart';
+import '../../Const.dart';
 
 // --------------------------------
 // クラス名 　: UserListDetailWidget
@@ -24,7 +24,7 @@ class UserListDetailWidget extends StatelessWidget {
     return InkWell(
       onTap: () {
         Provider.of<UserDetailPageNotifier>(context, listen: false).reset();
-        Provider.of<UserDetailPageNotifier>(context, listen: false).load(userMap[Strings.ID]);
+        Provider.of<UserDetailPageNotifier>(context, listen: false).load(userMap[Const.ID]);
 
         Navigator.of(context).push(
           MaterialPageRoute(
@@ -37,23 +37,23 @@ class UserListDetailWidget extends StatelessWidget {
       child: Container(
         child: ListTile(
           leading: UserImageWidget(
-            uid: userMap[Strings.ID],
+            uid: userMap[Const.ID],
             radius: MediaQuery.of(context).size.width / 8,
             color: Colors.grey,
             profile: true,
           ),
           title: Text(
-            userMap[Strings.USER].data()[Strings.NAME],
+            userMap[Const.USER].data()[Const.NAME],
             style: TextStyle(
               fontWeight: FontWeight.bold,
             ),
           ),
           subtitle: Text(
-            userMap[Strings.USER].data()[Strings.MESSAGE],
+            userMap[Const.USER].data()[Const.MESSAGE],
             overflow: TextOverflow.ellipsis,
             maxLines: 3,
           ),
-          trailing: UserButtonWidget(uid: userMap[Strings.USER].id),
+          trailing: UserButtonWidget(uid: userMap[Const.USER].id),
         ),
       ),
     );

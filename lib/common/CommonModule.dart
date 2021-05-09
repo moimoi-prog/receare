@@ -10,8 +10,10 @@ import 'package:intl/intl.dart';
 // 処理概要　 : DocumentSnapshotにキーが保存されているか判定する
 // --------------------------------
 bool registeredKey(DocumentSnapshot doc, String key) {
+  // 戻り値を生成
   bool flag;
 
+  // キーがあるか反省し、結果を変数に保存
   if (doc.data().containsKey(key) && // キーがある
       doc.data()[key] != null // nullじゃない
       && doc.data()[key] != "" // ""じゃない
@@ -21,6 +23,7 @@ bool registeredKey(DocumentSnapshot doc, String key) {
     flag = false;
   }
 
+  // 戻り値を返す
   return flag;
 
 }
@@ -38,7 +41,7 @@ String getFormattedDate(String format, [DateTime date]) {
   // フォーマットを生成
   var formatter = new DateFormat(format);
 
-  // 日付を整形
+  // 日付をフォーマットに合わせて整形
   String formatted = formatter.format(date);
 
   // 戻り値を返す
@@ -89,6 +92,7 @@ String getPassDate(DateTime date) {
 // 処理概要　 : 画像を指定されたサイズに変換する
 // --------------------------------
 Future<File> imageCompression(File file, int width, int height) async {
+  // 画像のサイズを変換
   File ret = await FlutterNativeImage.compressImage(
       file.path,
       quality: 80,
@@ -96,6 +100,7 @@ Future<File> imageCompression(File file, int width, int height) async {
       targetHeight: height
   );
 
+  // 変換後の画像を返す
   return ret;
 }
 
@@ -104,6 +109,7 @@ Future<File> imageCompression(File file, int width, int height) async {
 // 処理概要　 : 画像を指定されたサイズに変換する(パスから)
 // --------------------------------
 Future<File> imageCompressionToPath(String path, int width, int height) async {
+  // 画像のサイズを変換
   File ret = await FlutterNativeImage.compressImage(
       path,
       quality: 80,
@@ -111,6 +117,7 @@ Future<File> imageCompressionToPath(String path, int width, int height) async {
       targetHeight: height
   );
 
+  // 変換ごの画像を返す
   return ret;
 }
 
@@ -119,6 +126,7 @@ Future<File> imageCompressionToPath(String path, int width, int height) async {
 // 処理概要　 : ランダムな文字列を生成する
 // --------------------------------
 String randomString(int length) {
+  // 文字列の元を生成
   const _randomChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   const _charsLength = _randomChars.length;
 
@@ -130,6 +138,8 @@ String randomString(int length) {
       return _randomChars.codeUnitAt(n);
     },
   );
+
+  // 文字列を返す
   return new String.fromCharCodes(codeUnits);
 }
 

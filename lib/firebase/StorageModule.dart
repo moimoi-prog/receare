@@ -12,7 +12,10 @@ FirebaseStorage storage = FirebaseStorage();
 // 処理概要　 : 画像をアップロード
 // --------------------------------
 Future<String> uploadImage(File file) async {
+  // 保存先ディレクトリパスを生成
   String subDirectoryName = "images";
+
+  // タイムスタンプを生成
   int timestamp = DateTime.now().millisecondsSinceEpoch;
 
   // ストレージへの参照を生成
@@ -68,7 +71,10 @@ Future<String> uploadImage(File file) async {
 // 処理概要　 : シャウト画像をアップロード
 // --------------------------------
 Future<String> uploadShoutImage(List<int> file) async {
+  // 保存先ディレクトリパスを生成
   String subDirectoryName = "shouts";
+
+  // タイムスタンプを生成
   int timestamp = DateTime.now().millisecondsSinceEpoch;
 
   // ストレージへの参照を生成

@@ -3,9 +3,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:receare/state/user_detail_page/UserDetailPageNotifier.dart';
-import 'package:receare/widget/user_detail_page/UserDetailPage.dart';
+import 'package:receare/widget/page/user_detail_page/UserDetailPage.dart';
 
-import '../../Strings.dart';
+import '../../Const.dart';
 
 // --------------------------------
 // クラス名 　: UserNameWidget
@@ -26,7 +26,7 @@ class UserNameWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: FirebaseFirestore.instance.collection(Strings.USERS).doc(uid).snapshots(),
+      stream: FirebaseFirestore.instance.collection(Const.USERS).doc(uid).snapshots(),
       builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> doc) {
         // データ取得中に表示
         if (!doc.hasData) {
@@ -51,7 +51,7 @@ class UserNameWidget extends StatelessWidget {
           },
           child: Text(
             // commentDoc[Strings.UID],
-            doc.data.data()[Strings.NAME],
+            doc.data.data()[Const.NAME],
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
         );

@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:receare/state/user_detail_page/UserDetailPageNotifier.dart';
-import 'package:receare/widget/user_detail_page/UserDetailPage.dart';
+import 'package:receare/widget/page/user_detail_page/UserDetailPage.dart';
 
-import '../../Strings.dart';
+import '../../Const.dart';
 
 // --------------------------------
 // クラス名 　: UserImageWidget
@@ -34,7 +34,7 @@ class UserImageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: FirebaseFirestore.instance.collection(Strings.USERS).doc(uid).snapshots(),
+      stream: FirebaseFirestore.instance.collection(Const.USERS).doc(uid).snapshots(),
       builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> doc) {
         // データ取得中に表示
         if (!doc.hasData) {
@@ -49,11 +49,11 @@ class UserImageWidget extends StatelessWidget {
         }
 
         // データが存在しなかったときの処理
-        if (!doc.data.data().containsKey(Strings.ICON_IMAGE_PATH) // パラメータが存在しない場合
+        if (!doc.data.data().containsKey(Const.ICON_IMAGE_PATH) // パラメータが存在しない場合
             ||
-            doc.data.data()[Strings.ICON_IMAGE_PATH] == null // あるがnullの場合
+            doc.data.data()[Const.ICON_IMAGE_PATH] == null // あるがnullの場合
             ||
-            doc.data.data()[Strings.ICON_IMAGE_PATH] == "" // あるが""の場合
+            doc.data.data()[Const.ICON_IMAGE_PATH] == "" // あるが""の場合
         ) {
           return InkWell(
             onTap: () {
@@ -104,7 +104,7 @@ class UserImageWidget extends StatelessWidget {
               shape: BoxShape.circle,
               image: DecorationImage(
                 fit: BoxFit.fill,
-                image: NetworkImage(doc.data.data()[Strings.ICON_IMAGE_PATH]),
+                image: NetworkImage(doc.data.data()[Const.ICON_IMAGE_PATH]),
               ),
             ),
           ),

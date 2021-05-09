@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 
 import 'package:receare/firebase/AuthModule.dart';
 import 'package:receare/firebase/UserModule.dart';
-import 'package:receare/widget/user_update_page/UserUpdatePage.dart';
+import 'package:receare/widget/page/user_update_page/UserUpdatePage.dart';
 
-import '../../Strings.dart';
+import '../../Const.dart';
 
 // ----------------------------------------
 // クラス名　: UserButtonWidget
@@ -24,7 +24,7 @@ class UserButtonWidget extends StatelessWidget {
     if (uid == user.uid) {
       return StreamBuilder(
         stream: FirebaseFirestore.instance // フレンドであるか判定
-            .collection(Strings.USERS)
+            .collection(Const.USERS)
             .doc(user.uid)
             .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> doc) {
@@ -38,9 +38,9 @@ class UserButtonWidget extends StatelessWidget {
     } else {
       return StreamBuilder(
         stream: FirebaseFirestore.instance // フレンドであるか判定
-            .collection(Strings.USERS)
+            .collection(Const.USERS)
             .doc(user.uid)
-            .collection(Strings.FRIENDS)
+            .collection(Const.FRIENDS)
             .doc(uid)
             .snapshots(),
         // ignore: missing_return
@@ -58,9 +58,9 @@ class UserButtonWidget extends StatelessWidget {
           } else {
             return StreamBuilder(
               stream: FirebaseFirestore.instance // フレンドリクエストを送信中であるか判定
-                  .collection(Strings.USERS)
+                  .collection(Const.USERS)
                   .doc(user.uid)
-                  .collection(Strings.SEND_APPLICATIONS)
+                  .collection(Const.SEND_APPLICATIONS)
                   .doc(uid)
                   .snapshots(),
               builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> doc) {
@@ -75,9 +75,9 @@ class UserButtonWidget extends StatelessWidget {
 
                 return StreamBuilder(
                   stream: FirebaseFirestore.instance // フレンドリクエストを受信中であるか判定
-                      .collection(Strings.USERS)
+                      .collection(Const.USERS)
                       .doc(user.uid)
-                      .collection(Strings.RECEPTION_APPLICATIONS)
+                      .collection(Const.RECEPTION_APPLICATIONS)
                       .doc(uid)
                       .snapshots(),
                   builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> doc) {

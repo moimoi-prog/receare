@@ -21,7 +21,7 @@ class CommentSenderNotifier extends StateNotifier<CommentSenderState> with Locat
   }
 
   // 更新
-  void change(bool flag) {
+  void setEnabled(bool flag) {
     final currentState = state;
 
     state = currentState.copyWith( // 更新する

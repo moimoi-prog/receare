@@ -9,7 +9,8 @@ part 'ShoutCreatePageState.freezed.dart';
 @freezed
 abstract class ShoutCreatePageState with _$ShoutCreatePageState {
   const factory ShoutCreatePageState({
-    String detail, // 内容
+    @Default(false) bool enabled,
+  TextEditingController detailController,
     @Default([]) List<Asset> imageList, // 画像一覧
     File video, // 動画
     TextEditingController tagListController // タグ一覧

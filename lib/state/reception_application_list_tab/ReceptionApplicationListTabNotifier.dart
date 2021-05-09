@@ -1,36 +1,35 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 import 'package:receare/firebase/AuthModule.dart';
 import 'package:state_notifier/state_notifier.dart';
 
 import '../../Const.dart';
-import 'FriendListPageState.dart';
+import 'ReceptionApplicationListTabState.dart';
 
 // ------------------------------------
-// クラス名　: FriendListPageNotifier
+// クラス名　: ReceptionApplicationListTabNotifier
 // クラス概要: Friend一覧タブNotifier
 // ------------------------------------
-class FriendListPageNotifier extends StateNotifier<FriendListPageState> with LocatorMixin {
-  FriendListPageNotifier() : super(FriendListPageState.loading());
+class ReceptionApplicationListTabNotifier extends StateNotifier<ReceptionApplicationListTabState> with LocatorMixin {
+  ReceptionApplicationListTabNotifier() : super(ReceptionApplicationListTabState.loading());
 
   // 初期化
   void initState() async {
     super.initState();
 
     // ----------------------------------
-    // フレンドを取得する
+    // 受信申請を取得する
     // ----------------------------------
-    List<DocumentSnapshot> friendDocs = (await FirebaseFirestore.instance // フレンド一覧を取得
+    List<DocumentSnapshot> receptionDocs = (await FirebaseFirestore.instance // フレンド一覧を取得
         .collection(Const.USERS)
         .doc(user.uid)
-        .collection(Const.FRIENDS)
+        .collection(Const.RECEPTION_APPLICATIONS)
         .get())
         .docs;
 
     // 登録するMapを生成
-    List<Map<String, dynamic>> friendMapList = [];
+    List<Map<String, dynamic>> receptionMapList = [];
 
-    for (DocumentSnapshot friendDoc in friendDocs) {
+    for (DocumentSnapshot friendDoc in receptionDocs) {
       DocumentSnapshot userDoc = await FirebaseFirestore.instance // 申請者情報を取得
           .collection(Const.USERS)
           .doc(friendDoc.data()[Const.UID])
@@ -38,15 +37,15 @@ class FriendListPageNotifier extends StateNotifier<FriendListPageState> with Loc
 
       Map<String, dynamic> map = {
         Const.ID: friendDoc.id,
-        Const.FRIEND: friendDoc,
+        Const.RECEPTION_APPLICATION: friendDoc,
         Const.USER: userDoc,
       };
 
-      friendMapList.add(map);
+      receptionMapList.add(map);
     }
 
-    state = FriendListPageState(
-      friendMapList: friendMapList,
+    state = ReceptionApplicationListTabState(
+      receptionMapList: receptionMapList,
     );
   }
 
@@ -56,19 +55,19 @@ class FriendListPageNotifier extends StateNotifier<FriendListPageState> with Loc
     final currentState = state;
 
     // ----------------------------------
-    // フレンドを取得する
+    // 受信申請を取得する
     // ----------------------------------
-    List<DocumentSnapshot> friendDocs = (await FirebaseFirestore.instance // フレンド一覧を取得
+    List<DocumentSnapshot> receptionDocs = (await FirebaseFirestore.instance // フレンド一覧を取得
         .collection(Const.USERS)
         .doc(user.uid)
-        .collection(Const.FRIENDS)
+        .collection(Const.RECEPTION_APPLICATIONS)
         .get())
         .docs;
 
     // 登録するMapを生成
-    List<Map<String, dynamic>> friendMapList = [];
+    List<Map<String, dynamic>> receptionMapList = [];
 
-    for (DocumentSnapshot friendDoc in friendDocs) {
+    for (DocumentSnapshot friendDoc in receptionDocs) {
       DocumentSnapshot userDoc = await FirebaseFirestore.instance // 申請者情報を取得
           .collection(Const.USERS)
           .doc(friendDoc.data()[Const.UID])
@@ -76,21 +75,21 @@ class FriendListPageNotifier extends StateNotifier<FriendListPageState> with Loc
 
       Map<String, dynamic> map = {
         Const.ID: friendDoc.id,
-        Const.FRIEND: friendDoc,
+        Const.RECEPTION_APPLICATION: friendDoc,
         Const.USER: userDoc,
       };
 
-      friendMapList.add(map);
+      receptionMapList.add(map);
     }
 
-    if (currentState is FriendListPageStateData) {
+    if (currentState is ReceptionApplicationListTabStateData) {
       // stateを更新
       state = currentState.copyWith(
-        friendMapList: friendMapList,
+        receptionMapList: receptionMapList,
       );
     } else {
-      state = FriendListPageState(
-        friendMapList: friendMapList,
+      state = ReceptionApplicationListTabState(
+        receptionMapList: receptionMapList,
       );
     }
   }

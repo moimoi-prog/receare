@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_state_notifier/flutter_state_notifier.dart';
 import 'package:provider/provider.dart';
-import 'package:receare/state/reception_application_list_page/ReceptionApplicationListTabNotifier.dart';
-import 'package:receare/state/reception_application_list_page/ReceptionApplicationListTabState.dart';
-import 'package:receare/state/send_application_list_page/SendApplicationListTabNotifier.dart';
-import 'package:receare/state/send_application_list_page/SendApplicationListTabState.dart';
+import 'package:receare/state/reception_application_list_tab/ReceptionApplicationListTabNotifier.dart';
+import 'package:receare/state/reception_application_list_tab/ReceptionApplicationListTabState.dart';
+import 'package:receare/state/send_application_list_tab/SendApplicationListTabNotifier.dart';
+import 'package:receare/state/send_application_list_tab/SendApplicationListTabState.dart';
+import 'package:receare/state/shout_list_tab/ShoutListTabNotifier.dart';
+import 'package:receare/state/shout_list_tab/ShoutListTabState.dart';
 import 'package:receare/state/user_detail_page/UserDetailPageNotifier.dart';
-import 'package:receare/widget/LoginPage.dart';
-import 'package:receare/widget/MainPage.dart';
-import 'package:receare/widget/SplashPage.dart';
+import 'package:receare/state/user_list_tab/UserListTabNotifier.dart';
+import 'package:receare/state/user_list_tab/UserListTabState.dart';
+import 'package:receare/widget/page/LoginPage.dart';
+import 'package:receare/widget/page/SplashPage.dart';
 import 'package:receare/state/comment_sender/CommentSenderNotifier.dart';
 import 'package:receare/state/comment_sender/CommentSenderState.dart';
 import 'package:receare/state/friend_list_page/FriendListPageNotifier.dart';
@@ -17,11 +20,8 @@ import 'package:receare/state/main_page/MainPageNotifier.dart';
 import 'package:receare/state/main_page/MainPageState.dart';
 import 'package:receare/state/shout_create_page/ShoutCreatePageNotifier.dart';
 import 'package:receare/state/shout_create_page/ShoutCreatePageState.dart';
-import 'package:receare/state/shout_list_page/ShoutListPageNotifier.dart';
-import 'package:receare/state/shout_list_page/ShoutListPageState.dart';
 import 'package:receare/state/user_detail_page/UserDetailPageState.dart';
-import 'package:receare/state/user_list_page/UserListPageNotifier.dart';
-import 'package:receare/state/user_list_page/UserListPageState.dart';
+import 'package:receare/widget/page/main_page/MainPage.dart';
 
 // --------------------------------
 // メソッド名 : main
@@ -35,29 +35,29 @@ void main() {
         StateNotifierProvider<MainPageNotifier, MainPageState>(
           create: (context) => MainPageNotifier(),
         ),
-        StateNotifierProvider<ShoutListPageNotifier, ShoutListPageState>(
-          create: (context) => ShoutListPageNotifier(),
+        StateNotifierProvider<ShoutListTabNotifier, ShoutListTabState>(
+          create: (context) => ShoutListTabNotifier(),
         ),
-        StateNotifierProvider<UserDetailPageNotifier, UserDetailPageState>(
-          create: (context) => UserDetailPageNotifier(),
-        ),
-        StateNotifierProvider<CommentSenderNotifier, CommentSenderState>(
-          create: (context) => CommentSenderNotifier(),
+        StateNotifierProvider<UserListTabNotifier, UserListTabState>(
+          create: (context) => UserListTabNotifier(),
         ),
         StateNotifierProvider<FriendListPageNotifier, FriendListPageState>(
           create: (context) => FriendListPageNotifier(),
-        ),
-        StateNotifierProvider<ShoutCreatePageNotifier, ShoutCreatePageState>(
-          create: (context) => ShoutCreatePageNotifier(),
-        ),
-        StateNotifierProvider<UserListPageNotifier, UserListPageState>(
-          create: (context) => UserListPageNotifier(),
         ),
         StateNotifierProvider<SendApplicationListTabNotifier, SendApplicationListTabState>(
           create: (context) => SendApplicationListTabNotifier(),
         ),
         StateNotifierProvider<ReceptionApplicationListTabNotifier, ReceptionApplicationListTabState>(
           create: (context) => ReceptionApplicationListTabNotifier(),
+        ),
+        StateNotifierProvider<ShoutCreatePageNotifier, ShoutCreatePageState>(
+          create: (context) => ShoutCreatePageNotifier(),
+        ),
+        StateNotifierProvider<UserDetailPageNotifier, UserDetailPageState>(
+          create: (context) => UserDetailPageNotifier(),
+        ),
+        StateNotifierProvider<CommentSenderNotifier, CommentSenderState>(
+          create: (context) => CommentSenderNotifier(),
         ),
       ],
     ),

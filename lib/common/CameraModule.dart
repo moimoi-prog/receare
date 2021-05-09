@@ -7,7 +7,7 @@ import 'CommonModule.dart';
 
 // --------------------------------
 // メソッド名 : localPath
-// 処理概要　 : 画像の保存先パスを返す
+// 処理概要　 : 画像を保存する場所のパスを返す
 // --------------------------------
 Future get localPath async {
   final directory = await getApplicationDocumentsDirectory();
@@ -16,32 +16,24 @@ Future get localPath async {
 
 // --------------------------------
 // メソッド名 : saveLocalImage
-// 処理概要　 : ドキュメントへ画像を保存する
+// 処理概要　 : 画像を保存する
 // --------------------------------
 Future saveLocalImage(File image) async {
+  // ファイル名の元となる文字列を生成
   String formatted = getFormattedDate('yyyyMMddHHmmss');
 
+  // ファイルパスを生成
   final documentPath = await localPath;
   final imagePath = "$documentPath/$formatted-image.jpg";
 
+  // ファイルオブジェクトを生成
   File imageFile = File(imagePath);
 
-  // 一時フォルダに保存された画像をドキュメントへ保存し直す
+  // 引数のファイルを保存する
   var saveFile = await imageFile.writeAsBytes(await image.readAsBytes());
 
+  // 保存したファイルオブジェクトを返す
   return saveFile;
-}
-
-// --------------------------------
-// メソッド名 : leadLocalImage
-// 処理概要　 : ドキュメントの画像を取得する
-// --------------------------------
-Future leadLocalImage() async {
-  String formatted = getFormattedDate('yyyyMMddHHmmss');
-
-  final path = await localPath;
-  final imagePath = "$path/$formatted-image.jpg";
-  return File(imagePath);
 }
 
 // --------------------------------
@@ -65,6 +57,6 @@ Future<File> getAndSaveImageFromDevice(ImageSource source) async {
   // 画像を保存する
   var saveFile = await saveLocalImage(image);
 
-  // 戻り値を返す
+  // 取得したファイルオブジェクトを返す
   return saveFile;
 }

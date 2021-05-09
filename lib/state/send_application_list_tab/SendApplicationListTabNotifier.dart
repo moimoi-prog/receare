@@ -4,93 +4,93 @@ import 'package:receare/firebase/AuthModule.dart';
 import 'package:state_notifier/state_notifier.dart';
 
 import '../../Const.dart';
-import 'FriendListPageState.dart';
+import 'SendApplicationListTabState.dart';
 
 // ------------------------------------
-// クラス名　: FriendListPageNotifier
+// クラス名　: SendApplicationListTabNotifier
 // クラス概要: Friend一覧タブNotifier
 // ------------------------------------
-class FriendListPageNotifier extends StateNotifier<FriendListPageState> with LocatorMixin {
-  FriendListPageNotifier() : super(FriendListPageState.loading());
+class SendApplicationListTabNotifier extends StateNotifier<SendApplicationListTabState> with LocatorMixin {
+  SendApplicationListTabNotifier() : super(SendApplicationListTabState.loading());
 
   // 初期化
   void initState() async {
     super.initState();
 
     // ----------------------------------
-    // フレンドを取得する
+    // 受信申請を取得する
     // ----------------------------------
-    List<DocumentSnapshot> friendDocs = (await FirebaseFirestore.instance // フレンド一覧を取得
+    List<DocumentSnapshot> sendDocs = (await FirebaseFirestore.instance // フレンド一覧を取得
         .collection(Const.USERS)
         .doc(user.uid)
-        .collection(Const.FRIENDS)
+        .collection(Const.SEND_APPLICATIONS)
         .get())
         .docs;
 
     // 登録するMapを生成
-    List<Map<String, dynamic>> friendMapList = [];
+    List<Map<String, dynamic>> sendMapList = [];
 
-    for (DocumentSnapshot friendDoc in friendDocs) {
+    for (DocumentSnapshot sendDoc in sendDocs) {
       DocumentSnapshot userDoc = await FirebaseFirestore.instance // 申請者情報を取得
           .collection(Const.USERS)
-          .doc(friendDoc.data()[Const.UID])
+          .doc(sendDoc.data()[Const.UID])
           .get();
 
       Map<String, dynamic> map = {
-        Const.ID: friendDoc.id,
-        Const.FRIEND: friendDoc,
+        Const.ID: sendDoc.id,
+        Const.SEND_APPLICATION: sendDoc,
         Const.USER: userDoc,
       };
 
-      friendMapList.add(map);
+      sendMapList.add(map);
     }
 
-    state = FriendListPageState(
-      friendMapList: friendMapList,
+    state = SendApplicationListTabState(
+      sendMapList: sendMapList,
     );
   }
 
   // documentを読み込む
-  void reload() async {
+  Future reload() async {
     // 現在のステータスを取得
     final currentState = state;
 
     // ----------------------------------
-    // フレンドを取得する
+    // 受信申請を取得する
     // ----------------------------------
-    List<DocumentSnapshot> friendDocs = (await FirebaseFirestore.instance // フレンド一覧を取得
+    List<DocumentSnapshot> sendDocs = (await FirebaseFirestore.instance // フレンド一覧を取得
         .collection(Const.USERS)
         .doc(user.uid)
-        .collection(Const.FRIENDS)
+        .collection(Const.SEND_APPLICATIONS)
         .get())
         .docs;
 
     // 登録するMapを生成
-    List<Map<String, dynamic>> friendMapList = [];
+    List<Map<String, dynamic>> sendMapList = [];
 
-    for (DocumentSnapshot friendDoc in friendDocs) {
+    for (DocumentSnapshot sendDoc in sendDocs) {
       DocumentSnapshot userDoc = await FirebaseFirestore.instance // 申請者情報を取得
           .collection(Const.USERS)
-          .doc(friendDoc.data()[Const.UID])
+          .doc(sendDoc.data()[Const.UID])
           .get();
 
       Map<String, dynamic> map = {
-        Const.ID: friendDoc.id,
-        Const.FRIEND: friendDoc,
+        Const.ID: sendDoc.id,
+        Const.SEND_APPLICATION: sendDoc,
         Const.USER: userDoc,
       };
 
-      friendMapList.add(map);
+      sendMapList.add(map);
     }
 
-    if (currentState is FriendListPageStateData) {
+    if (currentState is SendApplicationListTabStateData) {
       // stateを更新
       state = currentState.copyWith(
-        friendMapList: friendMapList,
+        sendMapList: sendMapList,
       );
     } else {
-      state = FriendListPageState(
-        friendMapList: friendMapList,
+      state = SendApplicationListTabState(
+        sendMapList: sendMapList,
       );
     }
   }

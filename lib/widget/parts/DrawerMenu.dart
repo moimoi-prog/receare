@@ -4,12 +4,13 @@ import 'package:provider/provider.dart';
 import 'package:receare/common/LoadingDialog.dart';
 import 'package:receare/firebase/AuthModule.dart';
 import 'package:receare/state/friend_list_page/FriendListPageNotifier.dart';
-import 'package:receare/state/reception_application_list_page/ReceptionApplicationListTabNotifier.dart';
-import 'package:receare/state/send_application_list_page/SendApplicationListTabNotifier.dart';
+import 'package:receare/state/reception_application_list_tab/ReceptionApplicationListTabNotifier.dart';
+import 'package:receare/state/send_application_list_tab/SendApplicationListTabNotifier.dart';
 import 'package:receare/state/user_detail_page/UserDetailPageNotifier.dart';
-import 'package:receare/widget/friend_application_list_page/FriendApplicationListPage.dart';
-import 'package:receare/widget/friend_list_page/FriendListPage.dart';
-import 'package:receare/widget/user_detail_page/UserDetailPage.dart';
+import 'package:receare/widget/page/friend_application_list_page/FriendApplicationListPage.dart';
+import 'package:receare/widget/page/friend_list_page/FriendListPage.dart';
+import 'package:receare/widget/page/user_detail_page/UserDetailPage.dart';
+
 
 
 // --------------------------------
