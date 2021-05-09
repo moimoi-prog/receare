@@ -13,8 +13,8 @@ class ReceptionApplicationListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Provider.of<ReceptionApplicationListTabState>(context, listen: true).when(
-      (friendMapList) {
-        if (friendMapList.length == 0) {
+      (receptionMapList) {
+        if (receptionMapList.length == 0) {
           return Padding(
             padding: EdgeInsets.all(5.0),
             child: Center(
@@ -33,12 +33,9 @@ class ReceptionApplicationListPage extends StatelessWidget {
             separatorBuilder: (BuildContext context, index) {
               return Divider();
             },
-            itemCount: friendMapList.length,
+            itemCount: receptionMapList.length,
             itemBuilder: (context, index) {
-
-              Map<String, dynamic> receptionMap = friendMapList[index];
-
-              return UserListDetailWidget(userMap: receptionMap);
+              return UserListDetailWidget(userMap: receptionMapList[index]);
             },
           ),
         );

@@ -33,13 +33,13 @@ class UserUpdatePage extends StatefulWidget {
 // クラス概要 : ユーザー情報変更画面ステータス
 // --------------------------------
 class _UserUpdatePageState extends State<UserUpdatePage> {
-  /* 画面の横 */
+  /* 画面の横幅 */
   double width;
 
-  TextEditingController nameController;
-  TextEditingController profileController;
-  File profileImage;
-  File backgroundImage;
+  /* 名前入力欄コントローラー 　　*/ TextEditingController nameController;
+  /* 自己紹介入力欄コントローラー */ TextEditingController profileController;
+  /* アイコン画像 　　　　　　　　*/ File profileImage;
+  /* 背景画像　　　　　　　　　　 */ File backgroundImage;
 
   bool profileImageFlag = false;
   bool backgroundImageFlag = false;
@@ -69,7 +69,6 @@ class _UserUpdatePageState extends State<UserUpdatePage> {
               children: <Widget>[
                 Stack(
                   children: <Widget>[
-                    // 大きさ調整するやつ
                     Container(
                       width: width,
                       height: (width / 3) + (width / 8) + 5,
@@ -102,6 +101,8 @@ class _UserUpdatePageState extends State<UserUpdatePage> {
                       height: width / 3,
                       color: Colors.grey,
                     ),
+
+                    // 背景画像選択ページ遷移ボタン
                     Positioned(
                       right: 5,
                       top: (width / 3) - (width / 8) - 5,
@@ -130,6 +131,8 @@ class _UserUpdatePageState extends State<UserUpdatePage> {
                         icon: Icon(Icons.photo_library_outlined),
                       ),
                     ),
+
+                    // アイコン画像枠
                     Positioned(
                       left: (width / 2) - (width / 8) - 5,
                       top: (width / 3) - (width / 8) - 5,
@@ -145,8 +148,7 @@ class _UserUpdatePageState extends State<UserUpdatePage> {
                       ),
                     ),
 
-                    // ユーザーイメージ
-
+                    // アイコン画像
                     Positioned(
                       left: (width / 2) - (width / 8),
                       top: (width / 3) - (width / 8),
@@ -164,8 +166,8 @@ class _UserUpdatePageState extends State<UserUpdatePage> {
                         )
                             : registeredKey(widget.userDoc, Const.ICON_IMAGE_PATH)
                             ? ClipOval(
-                          child: UserImageWidgetFromPath(
-                            path: widget.userDoc[Const.ICON_IMAGE_PATH],
+                          child: UserImageWidget(
+                            uid : widget.userDoc.id,
                             radius: width / 4,
                             color: Colors.grey,
                           ),
@@ -177,6 +179,8 @@ class _UserUpdatePageState extends State<UserUpdatePage> {
                         ),
                       ),
                     ),
+
+                    // アイコン画像選択ページ遷移ボタン
                     Positioned(
                       left: (width / 2) - (width / 8) + (width / 8) - 25,
                       top: (width / 3) - (width / 8) + (width / 8) - 25,
@@ -214,10 +218,13 @@ class _UserUpdatePageState extends State<UserUpdatePage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
+                  // 名前入力欄
                   TextFormField(
                     controller: nameController,
                     decoration: InputDecoration(labelText: "名前"),
                   ),
+
+                  // 自己紹介入力欄
                   TextFormField(
                     controller: profileController,
                     decoration: InputDecoration(labelText: "自己紹介"),
@@ -235,6 +242,8 @@ class _UserUpdatePageState extends State<UserUpdatePage> {
                   shape: StadiumBorder(),
                   onPressed: () async {
                     showLoadingDialog(context);
+
+                    // ユーザー情報更新
                     await updateUser(
                       uid: widget.userDoc.id,
                       name: nameController.text,
@@ -243,6 +252,7 @@ class _UserUpdatePageState extends State<UserUpdatePage> {
                       headerImage: backgroundImageFlag ? backgroundImage : null,
                     );
 
+                    // ユーザー情報際読み込み
                     await Provider.of<UserDetailPageNotifier>(context, listen: false).loadUser(widget.userDoc.id);
                     Navigator.of(context).pop();
                     Navigator.of(context).pop();

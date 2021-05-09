@@ -14,19 +14,18 @@ import '../../Const.dart';
 // クラス概要 : ユーザープロフィール画像
 // --------------------------------
 class UserImageWidget extends StatelessWidget {
-  final String uid;
-  final double radius;
-  final Color color;
-  final bool profile;
+  /* ユーザーID 　　　　　　　　　　*/ final String uid;
+  /* 画像半径 　　　　　　　　　　　*/ final double radius;
+  /* ない場合に表示する画像の色 　　*/ final Color color;
+  /* プロフィールページへ遷移するか */ final bool profile;
 
-  const UserImageWidget(
-      {Key key,
-        this.uid, // ユーザーID
-        this.radius, // 直径
-        this.color, // 色
-        this.profile = false //　タップ時にプロフィールへ遷移させるか
-      })
-      : assert(uid != null),
+  const UserImageWidget({
+    Key key,
+    this.uid,
+    this.radius,
+    this.color,
+    this.profile = false,
+  })  : assert(uid != null),
         assert(radius != null),
         assert(color != null),
         super(key: key);
@@ -50,17 +49,19 @@ class UserImageWidget extends StatelessWidget {
 
         // データが存在しなかったときの処理
         if (!doc.data.data().containsKey(Const.ICON_IMAGE_PATH) // パラメータが存在しない場合
-            ||
-            doc.data.data()[Const.ICON_IMAGE_PATH] == null // あるがnullの場合
-            ||
-            doc.data.data()[Const.ICON_IMAGE_PATH] == "" // あるが""の場合
-        ) {
+                ||
+                doc.data.data()[Const.ICON_IMAGE_PATH] == null // あるがnullの場合
+                ||
+                doc.data.data()[Const.ICON_IMAGE_PATH] == "" // あるが""の場合
+            ) {
           return InkWell(
             onTap: () {
               if (profile) {
+                // プロフィールページstateをリセット
                 Provider.of<UserDetailPageNotifier>(context, listen: false).reset();
                 Provider.of<UserDetailPageNotifier>(context, listen: false).load(uid);
 
+                // プロフィールページへ遷移
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) {
@@ -85,9 +86,11 @@ class UserImageWidget extends StatelessWidget {
         return InkWell(
           onTap: () {
             if (profile) {
+              // プロフィールページstateを更新
               Provider.of<UserDetailPageNotifier>(context, listen: false).reset();
               Provider.of<UserDetailPageNotifier>(context, listen: false).load(uid);
 
+              // プロフィールページへ遷移
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) {
@@ -111,85 +114,5 @@ class UserImageWidget extends StatelessWidget {
         );
       },
     );
-  }
-}
-
-// --------------------------------
-// クラス名 　: UserImageWidgetFromPath
-// クラス概要 : ユーザープロフィール画像(パスから生成)
-// --------------------------------
-// ユーザープロフィール画像
-class UserImageWidgetFromPath extends StatelessWidget {
-  final String path;
-  final double radius;
-  final Color color;
-  final bool profile;
-
-  const UserImageWidgetFromPath(
-      {Key key,
-        this.path, // ユーザーID
-        this.radius, // 直径
-        this.color, // 色
-        this.profile = false //　タップ時にプロフィールへ遷移させるか
-      })
-      : assert(path != null),
-        assert(radius != null),
-        assert(color != null),
-        super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    // データが存在しなかったときの処理
-    if (path == null || path == "") {
-      return InkWell(
-        onTap: () {
-          if (profile) {
-            // Navigator.of(context).push(
-            //   MaterialPageRoute(
-            //     builder: (context) {
-            //       return ProfilePage(uid: doc.data.data()[Strings.UID]);
-            //     },
-            //   ),
-            // );
-            Fluttertoast.showToast(msg: "プロフィール画面へ遷移");
-          }
-        },
-        child: Container(
-          width: radius,
-          height: radius,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: color,
-          ),
-        ),
-      );
-    } else {
-      // データを表示
-      return InkWell(
-        onTap: () {
-          if (profile) {
-            // Navigator.of(context).push(
-            //   MaterialPageRoute(
-            //     builder: (context) {
-            //       return ProfilePage(uid: doc.data.data()[Strings.UID]);
-            //     },
-            //   ),
-            // );
-            Fluttertoast.showToast(msg: "プロフィール画面へ遷移");
-          }
-        },
-        child: Container(
-          width: radius,
-          height: radius,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            image: DecorationImage(
-              fit: BoxFit.fill,
-              image: NetworkImage(path),
-            ),
-          ),
-        ),
-      );
-    }
   }
 }

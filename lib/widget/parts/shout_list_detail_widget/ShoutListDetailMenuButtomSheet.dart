@@ -25,8 +25,11 @@ void showShoutListDetailMenuBottomSheet(BuildContext context, DocumentSnapshot s
             ListTile(
               title: Text("削除する"),
               onTap: () async {
+                // シャウトを削除する
                 await deleteShout(shoutId: shoutDoc.id);
                 Navigator.of(context).pop();
+
+                // シャウトリストstateを更新
                 Provider.of<ShoutListTabNotifier>(context, listen: false).reload();
                 Fluttertoast.showToast(msg: "シャウトを削除しました");
               },

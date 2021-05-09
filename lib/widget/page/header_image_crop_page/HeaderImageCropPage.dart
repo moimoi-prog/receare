@@ -8,8 +8,8 @@ import 'package:receare/pub/simple_image_crop.dart';
 // クラス概要 : ヘッダー画像切り取り画面　
 // --------------------------------
 class HeaderImageCropPage extends StatelessWidget {
-  final cropKey = GlobalKey<ImgCropState>();
-  final File image;
+  /* CropPageのキー   */ final cropKey = GlobalKey<ImgCropState>();
+  /* 切り取り対象の画像 */ final File image;
 
   HeaderImageCropPage({Key key, this.image}) : super(key: key);
 

@@ -20,7 +20,7 @@ import 'package:receare/widget/parts/shout_list_detail_widget/ShoutListDetailWid
 // クラス概要 : シャウト明細画面
 // --------------------------------
 class ShoutDetailPage extends StatelessWidget {
-  /* shoutデータ */ final ShoutData sd;
+  /* シャウトデータ */ final ShoutData sd;
 
   ShoutDetailPage({Key key, this.sd}) : super(key: key);
 
@@ -72,9 +72,11 @@ class ShoutDetailPage extends StatelessWidget {
       leading: InkWell(
         // プロフィール画面へ遷移
         onTap: () {
+          // プロフィール画面stateを更新
           Provider.of<UserDetailPageNotifier>(context, listen: false).reset();
           Provider.of<UserDetailPageNotifier>(context, listen: false).load(commentDoc.data()[Const.UID]);
 
+          // プロフィール画面へ遷移
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) {
@@ -83,6 +85,8 @@ class ShoutDetailPage extends StatelessWidget {
             ),
           );
         },
+
+        // ユーザー画像
         child: UserImageWidget(
           uid: commentDoc[Const.UID],
           radius: MediaQuery.of(context).size.width / 10,
@@ -92,15 +96,16 @@ class ShoutDetailPage extends StatelessWidget {
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
+          // ユーザー名
           UserNameWidget(
             uid: commentDoc.data()[Const.UID],
           ),
+
+          // シャウト投稿日
           Text(
-              " " +
-                  getPassDate(
-                    commentDoc[Const.UPDATE].toDate(),
-                  ),
-              style: TextStyle(color: Colors.grey)),
+            getPassDate(commentDoc[Const.UPDATE].toDate()),
+            style: TextStyle(color: Colors.grey),
+          ),
         ],
       ),
       subtitle: StreamBuilder(
@@ -109,12 +114,13 @@ class ShoutDetailPage extends StatelessWidget {
             .doc(commentDoc.id)
             .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> doc) {
+          // データ取得中の場合
           if (!doc.hasData) {
             return Text("", style: TextStyle(color: Colors.white));
           }
 
+          // データの取得が完了した場合
           return Text(
-            // コメント内容
             doc.data.data()[Const.DETAIL],
             style: TextStyle(color: Colors.white),
           );
@@ -134,6 +140,7 @@ class ShoutDetailPage extends StatelessWidget {
         padding: EdgeInsets.all(10.0),
         child: Row(
           children: <Widget>[
+            // コメント入力テキストボックス
             Expanded(
               child: TextFormField(
                 decoration: InputDecoration(hintText: "コメントを送信"),
@@ -150,6 +157,8 @@ class ShoutDetailPage extends StatelessWidget {
                 },
               ),
             ),
+
+            // コメント送信ボタン
             IconButton(
               icon: Icon(Icons.send),
               onPressed: !Provider.of<CommentSenderState>(context, listen: true).enabled

@@ -18,8 +18,6 @@ class Const {
   /* アイコン画像のパス */ static const String ICON_IMAGE_PATH = "icon_image_path";
   /* アカウントに紐づくコメント */ static const String MY_COMMENTS = "my_comments";
   /* アカウントに紐づくシャウト */ static const String MY_SHOUTS = "my_shouts";
-  /* いいねをつけたシャウト */ static const String GOOD_SHOUTS = "good_shouts";
-  /* よくないねをつけたシャウト */ static const String BAD_SHOUTS = "bad_shouts";
   /* 受信したフレンド申請(単数系) */ static const String RECEPTION_APPLICATION = "reception_application";
   /* 受信したフレンド申請(複数形) */ static const String RECEPTION_APPLICATIONS = "reception_applications";
   /* 送信したフレンド申請(単数系) */ static const String SEND_APPLICATION = "send_application";
@@ -30,8 +28,6 @@ class Const {
   /* シャウトID */ static const String SHOUT_ID = "shout_id";
   /* シャウト(単数形) */ static const String SHOUT = "shout";
   /* シャウト(複数形) */ static const String SHOUTS = "shouts";
-  /* シャウトについているいいね */ static const String GOODS = "goods";
-  /* シャウトについているよくないね */ static const String BADS = "bads";
   /* シャウトについているコメント */ static const String COMMENTS = "comments";
   /* 画像パス */ static const String IMAGE_PATH = "image_path";
   /* 明細 */ static const String DETAIL = "detail";

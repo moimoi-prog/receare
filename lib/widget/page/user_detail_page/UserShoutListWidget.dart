@@ -15,11 +15,11 @@ class UserShoutListWidget extends StatelessWidget {
       (userDoc, shoutDataList) {
         return RefreshIndicator(
           onRefresh: () async {
-            // Shoutを更新する
+            // シャウトを更新する
             Provider.of<UserDetailPageNotifier>(context, listen: false).loadShout(userDoc.id);
           },
           child: shoutDataList.length > 0
-              ? ListView.separated(
+              ? ListView.separated( // シャウト一覧を表示
                   padding: EdgeInsets.only(top: 5.0),
                   itemCount: shoutDataList.length,
                   separatorBuilder: (BuildContext context, index) {
@@ -29,7 +29,7 @@ class UserShoutListWidget extends StatelessWidget {
                     sd: shoutDataList[index],
                   ),
                 )
-              : Center(
+              : Center( // シャウトが投稿されていない旨を表示
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,

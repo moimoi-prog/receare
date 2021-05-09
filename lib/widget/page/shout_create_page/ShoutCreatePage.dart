@@ -14,7 +14,7 @@ import 'package:receare/state/shout_create_page/ShoutCreatePageState.dart';
 // クラス概要 : シャウト登録用
 // --------------------------------
 class ShoutCreatePage extends StatelessWidget {
-  final DocumentSnapshot document;
+  /* シャウトドキュメント(更新処理を行う際に使用) */ final DocumentSnapshot document;
 
   ShoutCreatePage({Key key, this.document}) : super(key: key);
 
@@ -23,6 +23,7 @@ class ShoutCreatePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // 引数があればシャウト投稿ページのstateを更新
     if (document != null) {
       Provider.of<ShoutCreatePageNotifier>(context, listen: false).setDoc(document);
     }
@@ -41,6 +42,7 @@ class ShoutCreatePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
+                // 文章入力欄
                 Expanded(
                   child: Container(
                     child: TextFormField(
@@ -59,6 +61,8 @@ class ShoutCreatePage extends StatelessWidget {
                     ),
                   ),
                 ),
+
+                // 選択画像表示
                 Container(
                   height: MediaQuery.of(context).size.width / 4,
                   child: ListView.builder(
@@ -81,10 +85,11 @@ class ShoutCreatePage extends StatelessWidget {
                     },
                   ),
                 ),
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    // ライブラリから選択
+                    // 画像選択ボタン
                     IconButton(
                       icon: Icon(Icons.photo_library),
                       onPressed: () async {
@@ -96,12 +101,14 @@ class ShoutCreatePage extends StatelessWidget {
                         }
                       },
                     ),
+
+                    // 送信ボタン
                     IconButton(
                         icon: Icon(Icons.send),
                         onPressed: Provider.of<ShoutCreatePageState>(context, listen: true).enabled
                             ? () async {
                           showLoadingDialog(context);
-                          // Shoutを登録
+                          // シャウトを登録
                           await registerShout(
                             detail: Provider.of<ShoutCreatePageState>(context, listen: false).detailController.text,
                             imageList: Provider.of<ShoutCreatePageState>(context, listen: false).imageList,

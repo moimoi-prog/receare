@@ -32,6 +32,7 @@ class UserButtonWidget extends StatelessWidget {
             return Text("");
           }
 
+          // プロフィール設定ボタンを表示
           return ProfileDataSettingButton(userDoc: doc.data);
         },
       );
@@ -43,21 +44,20 @@ class UserButtonWidget extends StatelessWidget {
             .collection(Const.FRIENDS)
             .doc(uid)
             .snapshots(),
-        // ignore: missing_return
         builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> doc) {
           if (!doc.hasData) {
             return Text("");
           }
 
           if (doc.data.exists) {
-            // フレンドであることを示す
+            // フレンドボタンを表示
             return FriendButton(
               color: Theme.of(context).primaryColor,
               uid: uid,
             );
           } else {
             return StreamBuilder(
-              stream: FirebaseFirestore.instance // フレンドリクエストを送信中であるか判定
+              stream: FirebaseFirestore.instance
                   .collection(Const.USERS)
                   .doc(user.uid)
                   .collection(Const.SEND_APPLICATIONS)
@@ -69,12 +69,12 @@ class UserButtonWidget extends StatelessWidget {
                 }
 
                 if (doc.data.exists) {
-                  // 送信取り消しボタンを表示
+                  // リクエスト送信取り消しボタンを表示「
                   return RejectButton(color: Theme.of(context).primaryColor, uid: uid);
                 }
 
                 return StreamBuilder(
-                  stream: FirebaseFirestore.instance // フレンドリクエストを受信中であるか判定
+                  stream: FirebaseFirestore.instance
                       .collection(Const.USERS)
                       .doc(user.uid)
                       .collection(Const.RECEPTION_APPLICATIONS)
@@ -86,11 +86,11 @@ class UserButtonWidget extends StatelessWidget {
                     }
 
                     if (doc.data.exists) {
-                      // 承認ボタンを表示
+                      // リクエスト承認ボタンを表示
                       return ConfirmButton(color: Theme.of(context).primaryColor, uid: uid);
                     }
 
-                    // リクエストを送信する
+                    // リクエスト送信ボタンを表示
                     return SendButton(color: Theme.of(context).primaryColor, uid: uid);
                   },
                 );

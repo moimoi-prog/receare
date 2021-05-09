@@ -38,9 +38,11 @@ class DrawerMenu extends StatelessWidget {
           ListTile(
             title: Text('マイページ'),
             onTap: () {
+              // プロフィールページstateを更新
               Provider.of<UserDetailPageNotifier>(context, listen: false).reset();
               Provider.of<UserDetailPageNotifier>(context, listen: false).load(user.uid);
 
+              // プロフィールページへ遷移
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) {
@@ -53,10 +55,13 @@ class DrawerMenu extends StatelessWidget {
           ListTile(
             title: Text('フレンド'),
             onTap: () {
+              // フレンドリストstateを更新
+              Provider.of<FriendListPageNotifier>(context, listen: false).reload();
+
+              // フレンドリストページへ遷移
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) {
-                    Provider.of<FriendListPageNotifier>(context, listen: false).reload();
                     return FriendListPage();
                   },
                 ),
@@ -66,11 +71,14 @@ class DrawerMenu extends StatelessWidget {
           ListTile(
             title: Text('リクエスト'),
             onTap: () {
+              // フレンドリクエストstateを更新
+              Provider.of<SendApplicationListTabNotifier>(context, listen: false).reload();
+              Provider.of<ReceptionApplicationListTabNotifier>(context, listen: false).reload();
+
+              // フレンドリクエストタブへ遷移
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) {
-                    Provider.of<SendApplicationListTabNotifier>(context, listen: false).reload();
-                    Provider.of<ReceptionApplicationListTabNotifier>(context, listen: false).reload();
                     return FriendApplicationListPage();
                   },
                 ),
@@ -81,9 +89,13 @@ class DrawerMenu extends StatelessWidget {
             title: Text('ログアウト'),
             onTap: () async {
               showLoadingDialog(context);
+
+              // ログアウトする
               await signOutWithGoogle();
               Navigator.of(context).pop();
               Fluttertoast.showToast(msg: "ログアウトしました。");
+
+              // ログインページへ遷移
               Navigator.pushReplacementNamed(context, "/login");
             },
           ),

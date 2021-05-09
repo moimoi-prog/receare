@@ -23,7 +23,6 @@ class UserDetailDataWidget extends StatelessWidget {
           children: <Widget>[
             Stack(
               children: <Widget>[
-                // 大きさ調整するやつ
                 Container(
                   width: width,
                   height: (width / 3) + (width / 8) + 5,
@@ -49,6 +48,7 @@ class UserDetailDataWidget extends StatelessWidget {
                         color: Colors.black,
                       ),
 
+                // アイコン画像の枠
                 Positioned(
                   left: (width / 2) - (width / 8) - 5,
                   top: (width / 3) - (width / 8) - 5,
@@ -64,7 +64,7 @@ class UserDetailDataWidget extends StatelessWidget {
                   ),
                 ),
 
-                // ユーザーイメージ
+                // アイコン画像
                 Positioned(
                   left: (width / 2) - (width / 8),
                   top: (width / 3) - (width / 8),
@@ -74,6 +74,8 @@ class UserDetailDataWidget extends StatelessWidget {
                     color: Colors.grey,
                   ),
                 ),
+
+                // ユーザーメニューボタン
                 Positioned(
                   top: width / 3,
                   child: Container(
@@ -90,6 +92,8 @@ class UserDetailDataWidget extends StatelessWidget {
                 ),
               ],
             ),
+
+            // ユーザー名
             Text(
               userDoc.data()[Const.NAME],
             ),
@@ -114,6 +118,7 @@ class UserDetailDataWidget extends StatelessWidget {
                   color: Colors.black,
                 ),
 
+                // アイコン画像の枠
                 Positioned(
                   left: (width / 2) - (width / 8) - 5,
                   top: (width / 3) - (width / 8) - 5,
@@ -129,7 +134,7 @@ class UserDetailDataWidget extends StatelessWidget {
                   ),
                 ),
 
-                // ユーザーイメージ
+                // アイコン画像
                 Positioned(
                   left: (width / 2) - (width / 8),
                   top: (width / 3) - (width / 8),

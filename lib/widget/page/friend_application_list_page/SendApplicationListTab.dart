@@ -12,8 +12,8 @@ class SendApplicationListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Provider.of<SendApplicationListTabState>(context, listen: true).when(
-      (friendMapList) {
-        if (friendMapList.length == 0) {
+      (sendMapList) {
+        if (sendMapList.length == 0) {
           return Padding(
             padding: EdgeInsets.all(5.0),
             child: Center(
@@ -24,7 +24,7 @@ class SendApplicationListPage extends StatelessWidget {
 
         return RefreshIndicator(
           onRefresh: () async {
-            // Shoutを更新する
+            // 送信フレンドリクエスト情報を更新する
             Provider.of<SendApplicationListTabNotifier>(context, listen: false).reload();
           },
           child: ListView.separated(
@@ -32,11 +32,9 @@ class SendApplicationListPage extends StatelessWidget {
             separatorBuilder: (BuildContext context, index) {
               return Divider();
             },
-            itemCount: friendMapList.length,
+            itemCount: sendMapList.length,
             itemBuilder: (context, index) {
-              Map<String, dynamic> sendMap = friendMapList[index];
-
-              return UserListDetailWidget(userMap: sendMap);
+              return UserListDetailWidget(userMap: sendMapList[index]);
             },
           ),
         );

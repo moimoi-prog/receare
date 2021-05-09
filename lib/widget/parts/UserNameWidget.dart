@@ -12,13 +12,13 @@ import '../../Const.dart';
 // クラス概要 : ユーザー名
 // --------------------------------
 class UserNameWidget extends StatelessWidget {
-  final String uid;
-  final bool profile;
+  /* ユーザーid */ final String uid;
+  /* プロフィールページへ遷移するか */ final bool profile;
 
   const UserNameWidget(
       {Key key,
-        this.uid, // ユーザーID
-        this.profile = false //　タップ時にプロフィールへ遷移させるか
+        this.uid,
+        this.profile = false
       })
       : assert(uid != null),
         super(key: key);
@@ -37,9 +37,11 @@ class UserNameWidget extends StatelessWidget {
         return InkWell(
           onTap: () {
             if (profile) {
+              // プロフィールページ stateを更新
               Provider.of<UserDetailPageNotifier>(context, listen: false).reset();
               Provider.of<UserDetailPageNotifier>(context, listen: false).load(uid);
 
+              // プロフィールページへ遷移
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) {
@@ -50,7 +52,6 @@ class UserNameWidget extends StatelessWidget {
             }
           },
           child: Text(
-            // commentDoc[Strings.UID],
             doc.data.data()[Const.NAME],
             style: TextStyle(fontWeight: FontWeight.bold),
           ),

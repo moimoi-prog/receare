@@ -13,7 +13,7 @@ import '../../Const.dart';
 // クラス概要 : ユーザー一覧要素
 // --------------------------------
 class UserListDetailWidget extends StatelessWidget {
-  final Map<String, dynamic> userMap;
+  /* ユーザーデータマップ */ final Map<String, dynamic> userMap;
 
   const UserListDetailWidget({Key key, this.userMap // Shoutデータ
       })
@@ -23,9 +23,11 @@ class UserListDetailWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
+        // プロフィールページstateを更新
         Provider.of<UserDetailPageNotifier>(context, listen: false).reset();
         Provider.of<UserDetailPageNotifier>(context, listen: false).load(userMap[Const.ID]);
 
+        // プロフィールページへ遷移
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) {

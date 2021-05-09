@@ -22,38 +22,42 @@ class ShoutListTab extends StatelessWidget {
           ),
           body: RefreshIndicator(
             onRefresh: () async {
-              // Shoutを更新する
+              // シャウトリストを更新する
               Provider.of<ShoutListTabNotifier>(context, listen: false).reload();
             },
-            child: shoutDataList.length > 0 ? ListView.separated(
-              padding: EdgeInsets.only(right: 5.0, left: 5.0),
-              separatorBuilder: (BuildContext context, index) {
-                return Divider();
-              },
-              itemCount: shoutDataList.length,
-              itemBuilder: (context, index) {
-                ShoutData sd = shoutDataList[index];
-
-                return ShoutListDetailWidget(
-                  sd: sd,
-                );
-              },
-            ) : Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text("シャウトがまだ投稿されていません。"),
-                  Text("投稿してみましょう!"),
-                ],
-              ),
-            ),
+            child: shoutDataList.length > 0
+                ? ListView.separated(
+                    // シャウトリストを表示
+                    padding: EdgeInsets.only(right: 5.0, left: 5.0),
+                    separatorBuilder: (BuildContext context, index) {
+                      return Divider();
+                    },
+                    itemCount: shoutDataList.length,
+                    itemBuilder: (context, index) {
+                      return ShoutListDetailWidget(
+                        sd: shoutDataList[index],
+                      );
+                    },
+                  )
+                : Center(
+                    // シャウトが投稿されていない旨を表示
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text("シャウトがまだ投稿されていません"),
+                        Text("投稿してみましょう!"),
+                      ],
+                    ),
+                  ),
           ),
           floatingActionButton: FloatingActionButton(
             child: Icon(Icons.edit),
             onPressed: () async {
+              // シャウト投稿画面を初期化する
               Provider.of<ShoutCreatePageNotifier>(context, listen: false).reset();
 
+              // シャウト投稿画面を開く
               bool register = await Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) {
@@ -62,7 +66,7 @@ class ShoutListTab extends StatelessWidget {
                 ),
               );
 
-              // shoutを投稿した場合、更新処理を行う
+              // シャウトを投稿した場合、更新処理を行う
               if (register != null && register) {
                 Provider.of<ShoutListTabNotifier>(context, listen: false).reload();
               }

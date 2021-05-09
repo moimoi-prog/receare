@@ -28,7 +28,7 @@ class FriendListPage extends StatelessWidget {
 
           return RefreshIndicator(
             onRefresh: () async {
-              // Shoutを更新する
+              // フレンドリストを更新する
               Provider.of<FriendListPageNotifier>(context, listen: false).reload();
             },
             child: ListView.separated(
@@ -38,9 +38,7 @@ class FriendListPage extends StatelessWidget {
               },
               itemCount: friendMapList.length,
               itemBuilder: (context, index) {
-                Map<String, dynamic> friendMap = friendMapList[index];
-
-                return UserListDetailWidget(userMap: friendMap);
+                return UserListDetailWidget(userMap: friendMapList[index]);
               },
             ),
           );

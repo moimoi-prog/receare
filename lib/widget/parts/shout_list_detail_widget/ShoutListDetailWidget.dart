@@ -30,8 +30,8 @@ class ShoutListDetailWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        // ShoutDetailPageへ遷移
         if (transition) {
+          // シャウト要塞ページへ遷移
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) {
@@ -53,9 +53,11 @@ class ShoutListDetailWidget extends StatelessWidget {
           ),
           title: InkWell(
             onTap: () {
+              // プロフィールページstateを更新
               Provider.of<UserDetailPageNotifier>(context, listen: false).reset();
               Provider.of<UserDetailPageNotifier>(context, listen: false).load(sd.uid);
 
+              // プロフィールページへ遷移
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) {

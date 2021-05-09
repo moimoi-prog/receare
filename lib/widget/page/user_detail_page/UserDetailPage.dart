@@ -33,13 +33,13 @@ class UserDetailPage extends StatelessWidget {
           tabBarView: TabBarView(
             children: [
               UserShoutListWidget(),
-              // Text("2こ目"),
             ],
           ),
         ),
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.edit),
           onPressed: () async {
+            // シャウト投稿画面へ遷移
             bool register = await Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) {
@@ -48,7 +48,7 @@ class UserDetailPage extends StatelessWidget {
               ),
             );
 
-            // shoutを投稿した場合、更新処理を行う
+            // シャウトを投稿した場合、更新処理を行う
             if (register != null && register) {
               Provider.of<UserDetailPageNotifier>(context, listen: false).reloadShout();
             }

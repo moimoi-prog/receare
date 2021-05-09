@@ -14,6 +14,7 @@ class UserDetailMessageWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Provider.of<UserDetailPageState>(context, listen: true).when(
           (userDoc, shoutMapList) {
+            // 自己紹介を表示
         return Container(
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 5),
           child: Text(

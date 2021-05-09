@@ -7,7 +7,7 @@ import 'package:photo_view/photo_view.dart';
 // クラス概要 : 画像詳細表示
 // --------------------------------
 class ImageDetailPage extends StatelessWidget {
-  final String path;
+  /* 表示する画像のパス */ final String path;
 
   const ImageDetailPage({Key key, this.path}) : super(key: key);
 
